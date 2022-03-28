@@ -1,0 +1,55 @@
+{
+    "name": "xyu/tt-app",
+    "description": "字节跳动小程序sdk",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "xyu",
+            "email": "15810265860@163.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.1",
+        "ext-json": "*",
+        "ext-openssl": "*",
+        "ext-curl": "*",
+        "composer/ca-bundle": "^1.3",
+        "hanson/foundation-sdk": "^5.0"
+    },
+    "require-dev": {
+        "hyperf/utils": "~2.2.0"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true
+    },
+    "suggest": {
+        "hyperf/guzzle": "~2.2.0",
+        "hyperf/di": "~2.2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Xyu\\TtApp\\": "src/"
+        },
+        "files": [
+            "src/Support/helper.php"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Xyu\\TtApp\\Laravel\\ServiceProvider"
+            ]
+        },
+        "hyperf": {
+            "config": "Xyu\\TtApp\\ConfigProvider"
+        }
+    },
+    "repositories": {
+        "packagist": {
+            "type": "composer",
+            "url": "https://mirrors.aliyun.com/composer/"
+        }
+    }
+}
