@@ -15,6 +15,8 @@ class AccessToken extends AbstractAccessToken
 
     protected $expiresJsonKey = 'expires_in';
 
+    protected $cacheKey = 'ttapp-token';
+
     public function getTokenFromServer()
     {
         return json_decode((string)$this->app->http->post('https://developer.toutiao.com/api/apps/v2/token', [

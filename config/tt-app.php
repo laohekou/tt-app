@@ -7,6 +7,7 @@ return [
 
     'drivers' => [
         'default' => [
+            'timout' => 5,
             'access_key' => env('TT_APP_ID'),
             'secret_key' => env('TT_APP_SECRET'),
 
@@ -15,6 +16,7 @@ return [
             'payment_secret' => env('TT_PAYMENT_SECRET'),
             'payment_salt' => env('TT_PAYMENT_SALT'),
             'payment_token' => env('TT_PAYMENT_TOKEN'),
+            'cache' => ''
         ]
     ],
 ];

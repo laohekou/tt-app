@@ -2,14 +2,36 @@
 
 namespace Xyu\TtApp;
 
+use Doctrine\Common\Cache\Cache;
 use Hanson\Foundation\Foundation;
-use Qbhy\TtMicroApp\ServiceProvider;
 
+/**
+ * Class TtApp
+ * @package Xyu\TtApp
+ *
+ * @property-read AccessToken $access_token
+ * @property-read Auth $auth
+ * @property-read QrCode $qr_code
+ * @property-read Storage $storage
+ * @property-read TempMsg $temp_msg
+ * @property-read ContentSecurity $content_security
+ * @property-read Decrypt $decrypt
+ * @property-read Payment $payment
+ * @property-read Cache $cache
+ */
 class TtApp extends Foundation
 {
     protected $providers = [
         ServiceProvider::class,
     ];
+
+    public function __construct($config)
+    {
+        if (!isset($config['debug'])) {
+            $config['debug'] = $this->config['debug'] ?? false;
+        }
+        parent::__construct($config);
+    }
 
     public function getTimeout()
     {
