@@ -16,7 +16,7 @@ return [
             'payment_secret' => env('TT_PAYMENT_SECRET'),
             'payment_salt' => env('TT_PAYMENT_SALT'),
             'payment_token' => env('TT_PAYMENT_TOKEN'),
-            'cache' => ''
+            'cache' => make(\Xyu\TtApp\Hyperf\HyperfRedisCache::class), // 可选参数，你也可以用 \Doctrine\Common\Cache\ 下面得其它缓存驱动
         ]
     ],
 ];
