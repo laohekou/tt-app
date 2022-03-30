@@ -28,7 +28,7 @@ class AccessToken extends AbstractAccessToken
             'err_no' => $data['err_no'] ?? null,
             'err_tips' => $data['err_tips'] ?? null,
             'access_token' => $data['data']['access_token'] ?? null,
-            'expires_in' => $data['data']['expires_in'] ?? 1,
+            'expires_in' => isset($data['data']['expires_in']) ? $data['data']['expires_in'] - 1 : 0,
         ];
     }
 
