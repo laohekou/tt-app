@@ -8,14 +8,14 @@ return [
     'drivers' => [
         'default' => [
             'timout' => 5,
-            'access_key' => env('TT_APP_ID'),
-            'secret_key' => env('TT_APP_SECRET'),
+            'access_key' => env('MP_TOUTIAO_APPID'),
+            'secret_key' => env('MP_TOUTIAO_SECRET'),
 
-            'payment_app_id' => env('TT_PAYMENT_APP_ID'),
-            'payment_merchant_id' => env('TT_PAYMENT_MERCHANT_ID'),
-            'payment_secret' => env('TT_PAYMENT_SECRET'),
-            'payment_salt' => env('TT_PAYMENT_SALT'),
-            'payment_token' => env('TT_PAYMENT_TOKEN'),
+            'payment_app_id' => env('MP_TOUTIAO_PAYMENT_APPID'),
+            'payment_merchant_id' => env('MP_TOUTIAO_PAYMENT_MERCHANTID'),
+            'payment_secret' => env('MP_TOUTIAO_PAYMENT_SECRET'),
+            'payment_salt' => env('MP_TOUTIAO_PAYMENT_SALT'),
+            'payment_token' => env('MP_TOUTIAO_PAYMENT_TOKEN'),
             // 可选参数，你也可以用 \Doctrine\Common\Cache\ 下面得其它缓存驱动
             'cache' => make(\Xyu\TtApp\Hyperf\HyperfRedisCache::class),
         ]

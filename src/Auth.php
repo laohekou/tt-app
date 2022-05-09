@@ -32,7 +32,7 @@ class Auth
             throw new TtAppException('type 只能是 ' . implode('或者', $limit));
         }
 
-        return json_decode((string)$this->app->http->post('https://developer.toutiao.com/api/apps/v2/jscode2session', [
+        return json_decode((string)$this->app->http->json('https://developer.toutiao.com/api/apps/v2/jscode2session', [
             'appid' => $this->app->getAppId(),
             'secret' => $this->app->getAppSecret(),
             $type => $code,
