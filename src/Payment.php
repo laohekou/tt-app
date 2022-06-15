@@ -79,7 +79,7 @@ class Payment
     }
 
     /**
-     * 订单查询
+     * 支付结果查询
      */
     public function queryOrder(string $out_order_no): array
     {
@@ -94,7 +94,7 @@ class Payment
     }
 
     /**
-     * 退款请求
+     * 发起退款请求
      */
     public function createRefund(array $params): array
     {
@@ -108,7 +108,7 @@ class Payment
     }
 
     /**
-     * 查询退款
+     * 退款结果查询
      */
     public function queryRefund(string $out_refund_no): array
     {

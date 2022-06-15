@@ -4,6 +4,8 @@ namespace Xyu\TtApp;
 
 use Doctrine\Common\Cache\Cache;
 use Hanson\Foundation\Foundation;
+use Xyu\TtApp\Douyin\Account;
+use Xyu\TtApp\Douyin\PreparceOrder;
 
 /**
  * Class TtApp
@@ -17,6 +19,10 @@ use Hanson\Foundation\Foundation;
  * @property-read ContentSecurity $content_security
  * @property-read Decrypt $decrypt
  * @property-read Payment $payment
+ *
+ * @property-read Account $account
+ * @property-read \Xyu\TtApp\Douyin\AccessToken $douyin_token
+ * @property-read PreparceOrder $preparce_order
  * @property-read Cache $cache
  */
 class TtApp extends Foundation
@@ -71,6 +77,16 @@ class TtApp extends Foundation
     public function getPaymentToken()
     {
         return $this->getConfig('payment_token');
+    }
+
+    public function getClientKey()
+    {
+        return $this->getConfig('client_key');
+    }
+
+    public function getClientSecret()
+    {
+        return $this->getConfig('client_secret');
     }
 
     public function rebind(string $id, $value)

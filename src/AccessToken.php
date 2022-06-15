@@ -15,7 +15,7 @@ class AccessToken extends AbstractAccessToken
 
     protected $expiresJsonKey = 'expires_in';
 
-    protected $cacheKey = 'toutiao-token';
+    protected $cacheKey = 'zj-token';
 
     public function getTokenFromServer()
     {
@@ -28,7 +28,7 @@ class AccessToken extends AbstractAccessToken
             'err_no' => $data['err_no'] ?? null,
             'err_tips' => $data['err_tips'] ?? null,
             'access_token' => $data['data']['access_token'] ?? null,
-            'expires_in' => isset($data['data']['expires_in']) ? (int)$data['data']['expires_in'] - 1 : 0,
+            'expires_in' => isset($data['data']['expires_in']) ? (int)$data['data']['expires_in'] - 5 : 0,
         ];
     }
 

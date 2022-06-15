@@ -5,6 +5,8 @@ namespace Xyu\TtApp;
 use Hanson\Foundation\Http;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
+use Xyu\TtApp\Douyin\Account;
+use Xyu\TtApp\Douyin\PreparceOrder;
 
 class ServiceProvider implements ServiceProviderInterface
 {
@@ -46,5 +48,19 @@ class ServiceProvider implements ServiceProviderInterface
         $pimple['payment'] = function (TtApp $ttApp) {
             return new Payment($ttApp);
         };
+
+        // 抖音开放平台接口
+        $pimple['account'] = function (TtApp $ttApp) {
+            return new Account($ttApp);
+        };
+
+        $pimple['douyin_token'] = function (TtApp $ttApp) {
+            return new \Xyu\TtApp\Douyin\AccessToken($ttApp);
+        };
+
+        $pimple['preparce_order'] = function (TtApp $ttApp) {
+            return new PreparceOrder($ttApp);
+        };
+
     }
 }
