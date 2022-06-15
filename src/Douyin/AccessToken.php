@@ -94,7 +94,7 @@ class AccessToken extends AbstractAccessToken
         return [
             'error_code' => $data['error_code'] ?? null,
             'err_tips' => json_encode($data, JSON_UNESCAPED_UNICODE),
-            'access_token' => $data['data']['access_token'] ?? null,
+            'access_token' => $data['data'] ?? null, // 包含access_token、refresh_token、openid等
             'expires_in' => isset($data['data']['expires_in']) ? (int)$data['data']['expires_in'] - 5 : 0,
         ];
     }
