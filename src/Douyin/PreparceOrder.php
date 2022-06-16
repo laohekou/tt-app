@@ -23,7 +23,7 @@ class PreparceOrder
         $result = $this->app->http->request('POST','https://open.douyin.com/poi/order/confirm/cancel_prepare', [
             \GuzzleHttp\RequestOptions::HEADERS => [
                 'Content-Type' => 'application/json',
-                'access-token' => $this->app->dy_access_token->getToken()
+                'access-token' => $this->app->douyin_token->getToken()
             ],
             \GuzzleHttp\RequestOptions::JSON => $params
         ])->getBody();
@@ -41,7 +41,7 @@ class PreparceOrder
         $result = $this->app->http->request('POST','https://open.douyin.com/poi/order/confirm/prepare', [
             \GuzzleHttp\RequestOptions::HEADERS => [
                 'Content-Type' => 'application/json',
-                'access-token' => $this->app->dy_access_token->getToken()
+                'access-token' => $this->app->douyin_token->getToken()
             ],
             \GuzzleHttp\RequestOptions::JSON => [
                 'code_list' => $params['code'],
@@ -63,7 +63,7 @@ class PreparceOrder
         $result = $this->app->http->request('POST','https://open.douyin.com/poi/order/confirm', [
             \GuzzleHttp\RequestOptions::HEADERS => [
                 'Content-Type' => 'application/json',
-                'access-token' => $this->app->dy_access_token->getToken()
+                'access-token' => $this->app->douyin_token->getToken()
             ],
             \GuzzleHttp\RequestOptions::JSON => [
                 'code_list' => $params['code'],
