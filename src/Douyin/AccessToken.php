@@ -23,15 +23,13 @@ class AccessToken extends AbstractAccessToken
     // 抖音refresh_token(通过access_token获取到的refresh_token参数)
     protected $refresh_token;
 
-    // 是否刷新access_token
-    protected $isRefreshToken = false;
-
     /**
      * @param string $code
      */
     public function setCode($code)
     {
         $this->code = $code;
+        return $this;
     }
 
     /**
@@ -48,6 +46,7 @@ class AccessToken extends AbstractAccessToken
     public function setRefreshToken($refreshToken)
     {
         $this->refreshToken = $refreshToken;
+        return $this;
     }
 
     /**
@@ -59,34 +58,24 @@ class AccessToken extends AbstractAccessToken
     }
 
     /**
-     * @param bool $isRefreshToken
+     *  1. 若 access_token 已过期，调用接口会报错(error_code=10008 或 2190008)，refresh_token 后会获取一个新的 access_token 以及新的超时时间。
+     *  2. 若 access_token 未过期，refresh_token 不会改变原来的 access_token，但超时时间会更新，相当于续期。
+     *  3. 若 refresh_token 过期，获取 access_token 会报错(error_code=10010)，此时需要重新走用户授权流程。
+     * @return array
      */
-    public function setIsRefreshToken($isRefreshToken)
-    {
-        $this->isRefreshToken = $isRefreshToken;
-    }
-
-    /**
-     * @return bool
-     */
-    public function getIsRefreshToken()
-    {
-        return $this->isRefreshToken;
-    }
-
     public function getTokenFromServer()
     {
-        if(! $this->getIsRefreshToken()) {
+        if(! $this->getRefreshToken()) {
             $data = $this->app->http
-                ->request('POST','https://open.douyin.com/oauth/access_token', [
-                    \GuzzleHttp\RequestOptions::HEADERS => ['Content-Type' => 'application/x-www-form-urlencoded'],
-                    \GuzzleHttp\RequestOptions::FORM_PARAMS => [
-                        'code' => $this->getCode(), // 抖音获取授权码
-                        'client_secret' => $this->app->getClientSecret(),
-                        'client_key' => $this->app->getClientKey(),
-                        'grant_type' => 'authorization_code',
-                    ]
-                ])->getBody();
+                    ->request('POST','https://open.douyin.com/oauth/access_token', [
+                        \GuzzleHttp\RequestOptions::HEADERS => ['Content-Type' => 'application/x-www-form-urlencoded'],
+                        \GuzzleHttp\RequestOptions::FORM_PARAMS => [
+                            'code' => $this->getCode(), // 抖音获取授权码
+                            'client_secret' => $this->app->getClientSecret(),
+                            'client_key' => $this->app->getClientKey(),
+                            'grant_type' => 'authorization_code',
+                        ]
+                    ])->getBody();
             $data = json_decode((string)$data, true);
         }else{
             $data = $this->refreshToken($this->getRefreshToken());
@@ -101,7 +90,7 @@ class AccessToken extends AbstractAccessToken
 
     public function checkTokenResponse($result)
     {
-        if (isset($result['error_code']) && $result['error_code'] !== '0') {
+        if (! isset($result['error_code']) || $result['error_code'] != 0) {
             throw new TtAppException("获取抖音access_token 失败：{$result['err_tips']}", $result['error_code']);
         }
     }
@@ -115,14 +104,14 @@ class AccessToken extends AbstractAccessToken
     public function refreshToken(string $refreshToken)
     {
         $result = $this->app->http
-            ->request('POST','https://open.douyin.com/oauth/refresh_token', [
-                \GuzzleHttp\RequestOptions::HEADERS => ['Content-Type' => 'multipart/form-data'],
-                \GuzzleHttp\RequestOptions::FORM_PARAMS => [
-                    'client_key' => $this->app->getClientKey(),
-                    'grant_type' => 'refresh_token',
-                    'refresh_token' => $refreshToken, // 填写通过access_token获取到的refresh_token参数
-                ]
-            ])->getBody();
+                    ->request('POST','https://open.douyin.com/oauth/refresh_token', [
+                        \GuzzleHttp\RequestOptions::HEADERS => ['Content-Type' => 'multipart/form-data'],
+                        \GuzzleHttp\RequestOptions::FORM_PARAMS => [
+                            'client_key' => $this->app->getClientKey(),
+                            'grant_type' => 'refresh_token',
+                            'refresh_token' => $refreshToken, // 填写通过access_token获取到的refresh_token参数
+                        ]
+                    ])->getBody();
 
         return json_decode((string)$result, true) ?: $result;
     }
@@ -135,13 +124,13 @@ class AccessToken extends AbstractAccessToken
     public function renewRefreshToken(string $refreshToken)
     {
         $result = $this->app->http
-            ->request('POST','https://open.douyin.com/oauth/renew_refresh_token', [
-                \GuzzleHttp\RequestOptions::HEADERS => ['Content-Type' => 'multipart/form-data'],
-                \GuzzleHttp\RequestOptions::FORM_PARAMS => [
-                    'client_key' => $this->app->getClientKey(),
-                    'refresh_token' => $refreshToken, // 填写通过access_token获取到的refresh_token参数
-                ]
-            ])->getBody();
+                    ->request('POST','https://open.douyin.com/oauth/renew_refresh_token', [
+                        \GuzzleHttp\RequestOptions::HEADERS => ['Content-Type' => 'multipart/form-data'],
+                        \GuzzleHttp\RequestOptions::FORM_PARAMS => [
+                            'client_key' => $this->app->getClientKey(),
+                            'refresh_token' => $refreshToken, // 填写通过access_token获取到的refresh_token参数
+                        ]
+                    ])->getBody();
 
         return json_decode((string)$result, true) ?: $result;
     }
@@ -153,14 +142,14 @@ class AccessToken extends AbstractAccessToken
     public function clientToken()
     {
         $result = $this->app->http
-            ->request('POST','https://open.douyin.com/oauth/client_token', [
-                \GuzzleHttp\RequestOptions::HEADERS => ['Content-Type' => 'multipart/form-data'],
-                \GuzzleHttp\RequestOptions::FORM_PARAMS => [
-                    'client_key' => $this->app->getClientKey(),
-                    'client_secret' => $this->app->getClientSecret(),
-                    'grant_type' => 'client_credential',
-                ]
-            ])->getBody();
+                    ->request('POST','https://open.douyin.com/oauth/client_token', [
+                        \GuzzleHttp\RequestOptions::HEADERS => ['Content-Type' => 'multipart/form-data'],
+                        \GuzzleHttp\RequestOptions::FORM_PARAMS => [
+                            'client_key' => $this->app->getClientKey(),
+                            'client_secret' => $this->app->getClientSecret(),
+                            'grant_type' => 'client_credential',
+                        ]
+                    ])->getBody();
 
         return json_decode((string)$result, true) ?: $result;
     }

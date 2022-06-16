@@ -34,8 +34,8 @@ class AccessToken extends AbstractAccessToken
 
     public function checkTokenResponse($result)
     {
-        if (isset($result['err_no']) && $result['err_no'] !== 0) {
-            throw new TtAppException("获取字节小程序 access token 失败：{$result['err_tips']}");
+        if (! isset($result['err_no']) || $result['err_no'] !== 0) {
+            throw new TtAppException("获取字节小程序access_token 失败：{$result['err_tips']}");
         }
     }
 }
