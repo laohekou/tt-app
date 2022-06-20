@@ -2,16 +2,10 @@
 
 namespace Xyu\TtApp\Douyin;
 
-use Xyu\TtApp\TtApp;
+use Xyu\TtApp\Contract\AbstractGateway;
 
-class Account
+class Account extends AbstractGateway
 {
-    protected $app;
-
-    public function __construct(TtApp $ttApp)
-    {
-        $this->app = $ttApp;
-    }
 
     /**
      * 抖音获取授权码

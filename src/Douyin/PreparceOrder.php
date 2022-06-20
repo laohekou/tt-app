@@ -2,17 +2,10 @@
 
 namespace Xyu\TtApp\Douyin;
 
-use Xyu\TtApp\TtApp;
+use Xyu\TtApp\Contract\AbstractGateway;
 
-class PreparceOrder
+class PreparceOrder extends AbstractGateway
 {
-    protected $app;
-
-    public function __construct(TtApp $ttApp)
-    {
-        $this->app = $ttApp;
-    }
-
     /**
      * 取消预核销预售券
      * @param array $params
@@ -23,12 +16,22 @@ class PreparceOrder
         $result = $this->app->http->request('POST','https://open.douyin.com/poi/order/confirm/cancel_prepare', [
             \GuzzleHttp\RequestOptions::HEADERS => [
                 'Content-Type' => 'application/json',
-                'access-token' => $this->app->douyin_token->getToken()
+                'access-token' => $this->dyAccessToken()
             ],
             \GuzzleHttp\RequestOptions::JSON => $params
         ])->getBody();
 
-        return json_decode((string)$result, true) ?: $result;
+        $resp = json_decode((string)$result, true) ?: $result;
+
+        if($resp) {
+            if(true === $this->checkToken((int)$resp['error_code'])) {
+                // todo 如果token原因，重试业务接口。
+                $result = $this->cancelPrepareCode($params);
+                return json_decode((string)$result, true) ?: $result;
+            }
+        }
+
+        return $resp;
     }
 
     /**
@@ -41,7 +44,7 @@ class PreparceOrder
         $result = $this->app->http->request('POST','https://open.douyin.com/poi/order/confirm/prepare', [
             \GuzzleHttp\RequestOptions::HEADERS => [
                 'Content-Type' => 'application/json',
-                'access-token' => $this->app->douyin_token->getToken()
+                'access-token' => $this->dyAccessToken()
             ],
             \GuzzleHttp\RequestOptions::JSON => [
                 'code_list' => $params['code'],
@@ -50,7 +53,17 @@ class PreparceOrder
             ]
         ])->getBody();
 
-        return json_decode((string)$result, true) ?: $result;
+        $resp = json_decode((string)$result, true) ?: $result;
+
+        if($resp) {
+            if(true === $this->checkToken((int)$resp['error_code'])) {
+                // todo 如果token原因，重试业务接口。
+                $result = $this->prepareCode($params);
+                return json_decode((string)$result, true) ?: $result;
+            }
+        }
+
+        return $resp;
     }
 
     /**
@@ -63,7 +76,7 @@ class PreparceOrder
         $result = $this->app->http->request('POST','https://open.douyin.com/poi/order/confirm', [
             \GuzzleHttp\RequestOptions::HEADERS => [
                 'Content-Type' => 'application/json',
-                'access-token' => $this->app->douyin_token->getToken()
+                'access-token' => $this->dyAccessToken()
             ],
             \GuzzleHttp\RequestOptions::JSON => [
                 'code_list' => $params['code'],
@@ -72,6 +85,16 @@ class PreparceOrder
             ]
         ])->getBody();
 
-        return json_decode((string)$result, true) ?: $result;
+        $resp = json_decode((string)$result, true) ?: $result;
+
+        if($resp) {
+            if(true === $this->checkToken((int)$resp['data']['error_code'])) {
+                // todo 如果token原因，重试业务接口。
+                $result = $this->prepare($params);
+                return json_decode((string)$result, true) ?: $result;
+            }
+        }
+
+        return $resp;
     }
 }
