@@ -6,13 +6,14 @@ use Xyu\TtApp\Contract\AbstractGateway;
 
 class Account extends AbstractGateway
 {
-
     /**
      * 抖音获取授权码
      * @param string $redirectUri
+     * @param array $scope
+     * @param string $state
      * @return mixed|\Psr\Http\Message\StreamInterface
      */
-    public function scope(string $redirectUri)
+    public function scope(string $redirectUri, array $scope = [], string $state = '', array $optionalScope = [])
     {
         $result = $this->app->http
                     ->request('GET','https://open.douyin.com/platform/oauth/connect', [
@@ -20,10 +21,10 @@ class Account extends AbstractGateway
                         \GuzzleHttp\RequestOptions::QUERY => [
                             'client_key' => $this->app->getClientKey(),
                             'response_type' => 'code',
-                            'scope' => '',
-                            'optionalScope' => '',
+                            'scope' => $scope ? implode(',', $scope) : 'user_info',
+                            'optionalScope' => $optionalScope ? implode(',', $optionalScope) : '',
                             'redirect_uri' => $redirectUri,
-                            'state' => '',
+                            'state' => $state,
                         ]
                     ])->getBody();
 

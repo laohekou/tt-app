@@ -45,7 +45,7 @@ class AccessToken extends AbstractAccessToken
      */
     public function setRefreshToken($refreshToken)
     {
-        $this->refreshToken = $refreshToken;
+        $this->refresh_token = $refreshToken;
         return $this;
     }
 
@@ -54,7 +54,7 @@ class AccessToken extends AbstractAccessToken
      */
     public function getRefreshToken()
     {
-        return $this->refreshToken;
+        return $this->refresh_token;
     }
 
     /**
