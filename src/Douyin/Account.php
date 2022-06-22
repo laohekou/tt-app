@@ -40,7 +40,7 @@ class Account extends AbstractGateway
     public function authorizeV2(string $redirectUri, string $state = '')
     {
         $result = $this->app->http
-            ->request('GET','https://open.douyin.com/oauth/authorize/v2', [
+            ->request('GET','https://aweme.snssdk.com/oauth/authorize/v2', [
                 \GuzzleHttp\RequestOptions::HEADERS => ['Content-Type' => 'application/json'],
                 \GuzzleHttp\RequestOptions::QUERY => [
                     'client_key' => $this->app->getClientKey(),
