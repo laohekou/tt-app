@@ -58,6 +58,10 @@ class ServiceProvider implements ServiceProviderInterface
             return new \Xyu\TtApp\Douyin\AccessToken($ttApp);
         };
 
+        $pimple['client_token'] = function (TtApp $ttApp) {
+            return new \Xyu\TtApp\Douyin\ClientToken($ttApp);
+        };
+
         $pimple['preparce_order'] = function (TtApp $ttApp) {
             return new PreparceOrder($ttApp);
         };

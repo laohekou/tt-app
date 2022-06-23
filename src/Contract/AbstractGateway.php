@@ -10,6 +10,19 @@ abstract class AbstractGateway
 
     protected $app;
 
+    public $check;
+
+    public function setCheckToken(bool $check = false)
+    {
+        $this->check = $check;
+        return $this;
+    }
+
+    public function getCheckToken()
+    {
+        return $this->check;
+    }
+
     public function __construct(TtApp $ttApp)
     {
         $this->app = $ttApp;
