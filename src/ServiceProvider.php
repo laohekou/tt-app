@@ -55,11 +55,11 @@ class ServiceProvider implements ServiceProviderInterface
         };
 
         $pimple['douyin_token'] = function (TtApp $ttApp) {
-            return new \Xyu\TtApp\Douyin\AccessToken($ttApp);
+            return (new \Xyu\TtApp\Douyin\AccessToken($ttApp))->setCache($ttApp->cache);
         };
 
         $pimple['client_token'] = function (TtApp $ttApp) {
-            return new \Xyu\TtApp\Douyin\ClientToken($ttApp);
+            return (new \Xyu\TtApp\Douyin\ClientToken($ttApp))->setCache($ttApp->cache);
         };
 
         $pimple['preparce_order'] = function (TtApp $ttApp) {
