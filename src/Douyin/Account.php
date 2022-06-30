@@ -54,4 +54,24 @@ class Account extends AbstractGateway
         return json_decode((string)$result, true) ?: $result;
     }
 
+
+    /**
+     * 会员数据更新
+     * @param array $params
+     * @return mixed|\Psr\Http\Message\StreamInterface
+     */
+    public function memberUp(array $params)
+    {
+        $result = $this->app->http
+            ->request('POST','https://open.douyin.com/goodlife/v1/member/user/update', [
+                \GuzzleHttp\RequestOptions::HEADERS => [
+                    'Content-Type' => 'application/json',
+                    'access-token' => $this->app->client_token->getToken(),
+                ],
+                \GuzzleHttp\RequestOptions::JSON => $params
+            ])->getBody();
+
+        return json_decode((string)$result, true) ?: $result;
+    }
+
 }

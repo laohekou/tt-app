@@ -6,7 +6,8 @@ use Doctrine\Common\Cache\Cache;
 use Hanson\Foundation\Foundation;
 use Xyu\TtApp\Douyin\Account;
 use Xyu\TtApp\Douyin\ClientToken;
-use Xyu\TtApp\Douyin\PreparceOrder;
+use Xyu\TtApp\Douyin\LifeService\PreparceCode;
+use Xyu\TtApp\Douyin\LifeService\Shops;
 
 /**
  * Class TtApp
@@ -24,7 +25,8 @@ use Xyu\TtApp\Douyin\PreparceOrder;
  * @property-read Account $account
  * @property-read \Xyu\TtApp\Douyin\AccessToken $douyin_token
  * @property-read ClientToken $client_token
- * @property-read PreparceOrder $preparce_order
+ * @property-read PreparceCode $preparce_code
+ * @property-read Shops $shops
  * @property-read Cache $cache
  */
 class TtApp extends Foundation

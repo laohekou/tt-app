@@ -6,7 +6,8 @@ use Hanson\Foundation\Http;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 use Xyu\TtApp\Douyin\Account;
-use Xyu\TtApp\Douyin\PreparceOrder;
+use Xyu\TtApp\Douyin\LifeService\PreparceCode;
+use Xyu\TtApp\Douyin\LifeService\Shops;
 
 class ServiceProvider implements ServiceProviderInterface
 {
@@ -62,8 +63,12 @@ class ServiceProvider implements ServiceProviderInterface
             return (new \Xyu\TtApp\Douyin\ClientToken($ttApp))->setCache($ttApp->cache);
         };
 
-        $pimple['preparce_order'] = function (TtApp $ttApp) {
-            return new PreparceOrder($ttApp);
+        $pimple['preparce_code'] = function (TtApp $ttApp) {
+            return new PreparceCode($ttApp);
+        };
+
+        $pimple['shops'] = function (TtApp $ttApp) {
+            return new Shops($ttApp);
         };
 
     }
