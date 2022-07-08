@@ -77,4 +77,14 @@ abstract class AbstractGateway
         }
     }
 
+    /**
+     * 手机号解密
+     * @param string $encrypted_mobile
+     * @return false|string
+     */
+    public function mobileDecrypt(string $encrypted_mobile) {
+        $iv = substr($this->app->getClientSecret(), 0, 16);
+        return openssl_decrypt($encrypted_mobile, 'aes-256-cbc', $this->app->getClientSecret(), 0, $iv);
+    }
+
 }

@@ -74,4 +74,100 @@ class Account extends AbstractGateway
         return json_decode((string)$result, true) ?: $result;
     }
 
+    /**
+     * 获取用户公开信息
+     * @param string $open_id
+     * @return mixed|\Psr\Http\Message\StreamInterface
+     */
+    public function userinfo(string $open_id)
+    {
+        $result = $this->app->http
+            ->request('POST','https://open.douyin.com/oauth/userinfo', [
+                \GuzzleHttp\RequestOptions::HEADERS => [
+                    'Content-Type' => 'application/json',
+                    'access-token' => $this->app->douyin_token->getToken(),
+                ],
+                \GuzzleHttp\RequestOptions::JSON => [
+                    'access_token' => $this->app->douyin_token->getToken(),
+                    'open_id' => $open_id,
+                ]
+            ])->getBody();
+
+        return json_decode((string)$result, true) ?: $result;
+    }
+
+    /**
+     * 获取粉丝列表
+     * @param string $open_id
+     * @param int $count
+     * @param int|null $cursor
+     * @return mixed|\Psr\Http\Message\StreamInterface
+     */
+    public function fansList(string $open_id, int $count = 20, int $cursor = null)
+    {
+        $result = $this->app->http
+            ->request('GET','https://open.douyin.com/fans/list', [
+                \GuzzleHttp\RequestOptions::HEADERS => [
+                    'Content-Type' => 'application/json',
+                    'access-token' => $this->app->douyin_token->getToken(),
+                ],
+                \GuzzleHttp\RequestOptions::JSON => [
+                    'count' => $count,
+                    'open_id' => $open_id,
+                    'cursor' => $cursor,
+                ]
+            ])->getBody();
+
+        return json_decode((string)$result, true) ?: $result;
+    }
+
+
+    /**
+     * 获取关注列表
+     * @param string $open_id
+     * @param int $count
+     * @param int|null $cursor
+     * @return mixed|\Psr\Http\Message\StreamInterface
+     */
+    public function followingList(string $open_id, int $count = 20, int $cursor = null)
+    {
+        $result = $this->app->http
+            ->request('GET','https://open.douyin.com/following/list', [
+                \GuzzleHttp\RequestOptions::HEADERS => [
+                    'Content-Type' => 'application/json',
+                    'access-token' => $this->app->douyin_token->getToken(),
+                ],
+                \GuzzleHttp\RequestOptions::JSON => [
+                    'count' => $count,
+                    'open_id' => $open_id,
+                    'cursor' => $cursor,
+                ]
+            ])->getBody();
+
+        return json_decode((string)$result, true) ?: $result;
+    }
+
+    /**
+     * 粉丝判断
+     * @param string $follower_open_id
+     * @param string $open_id
+     * @return mixed|\Psr\Http\Message\StreamInterface
+     */
+    public function fansCheck(string $follower_open_id, string $open_id)
+    {
+        $result = $this->app->http
+            ->request('GET','https://open.douyin.com/fans/check', [
+                \GuzzleHttp\RequestOptions::HEADERS => [
+                    'Content-Type' => 'application/json',
+                    'access-token' => $this->app->douyin_token->getToken(),
+                ],
+                \GuzzleHttp\RequestOptions::JSON => [
+                    'follower_open_id' => $follower_open_id,
+                    'open_id' => $open_id
+                ]
+            ])->getBody();
+
+        return json_decode((string)$result, true) ?: $result;
+    }
+
 }

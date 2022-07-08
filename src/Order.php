@@ -2,15 +2,10 @@
 
 namespace Xyu\TtApp;
 
-class Order
+use Xyu\TtApp\Contract\AbstractGateway;
+
+class Order extends AbstractGateway
 {
-    protected $app;
-
-    public function __construct(TtApp $ttApp)
-    {
-        $this->app = $ttApp;
-    }
-
     /**
      * 小程序订单同步
      * @param array $params

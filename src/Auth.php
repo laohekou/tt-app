@@ -2,23 +2,18 @@
 
 namespace Xyu\TtApp;
 
+use Xyu\TtApp\Contract\AbstractGateway;
 use Xyu\TtApp\Exception\TtAppException;
 
 /**
  * 登陆
  * Class Auth
  */
-class Auth
+class Auth extends AbstractGateway
 {
     const CODE = 'code';
+
     const ANONYMOUS_CODE = 'anonymous_code';
-
-    protected $app;
-
-    public function __construct(TtApp $ttApp)
-    {
-        $this->app = $ttApp;
-    }
 
     /**
      * @param string $code

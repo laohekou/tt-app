@@ -2,15 +2,10 @@
 
 namespace Xyu\TtApp;
 
-class Other
+use Xyu\TtApp\Contract\AbstractGateway;
+
+class Other extends AbstractGateway
 {
-    protected $app;
-
-    public function __construct(TtApp $ttApp)
-    {
-        $this->app = $ttApp;
-    }
-
     /**
      * @param string $uniqId 用户抖音号
      * @param int $type 1黑名单增加用户 2白名单增加用户 3黑名单删除用户 4白名单删除用户

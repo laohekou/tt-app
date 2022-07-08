@@ -2,19 +2,14 @@
 
 namespace Xyu\TtApp;
 
+use Xyu\TtApp\Contract\AbstractGateway;
+
 /**
  * 模版订阅消息
  * class TempMsg
  */
-class TempMsg
+class TempMsg extends AbstractGateway
 {
-    protected $app;
-
-    public function __construct(TtApp $microApp)
-    {
-        $this->app = $microApp;
-    }
-
     /**
      * 抖音小程序订阅消息
      * @param string $openId

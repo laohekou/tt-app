@@ -2,19 +2,14 @@
 
 namespace Xyu\TtApp;
 
+use Xyu\TtApp\Contract\AbstractGateway;
+
 /**
  * 字节跳动的数据云存储
  * class Storage
  */
-class Storage
+class Storage extends AbstractGateway
 {
-    protected $app;
-
-    public function __construct(TtApp $ttApp)
-    {
-        $this->app = $ttApp;
-    }
-
     /**
      * 以 key-value 形式上报用户数据到字节跳动的云存储服务。
      * @param string $openid

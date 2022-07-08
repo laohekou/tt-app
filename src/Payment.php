@@ -2,19 +2,14 @@
 
 namespace Xyu\TtApp;
 
+use Xyu\TtApp\Contract\AbstractGateway;
+
 /**
  * 担保支付
  * class Payment
  */
-class Payment
+class Payment extends AbstractGateway
 {
-    protected $app;
-
-    public function __construct(TtApp $ttApp)
-    {
-        $this->app = $ttApp;
-    }
-
     public function pay(string $uid, string $outTradeNo, int $totalAmount, string $subject, array $optional = [])
     {
         $data = [

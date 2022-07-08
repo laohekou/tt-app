@@ -3,20 +3,14 @@
 namespace Xyu\TtApp;
 
 use GuzzleHttp\RequestOptions;
+use Xyu\TtApp\Contract\AbstractGateway;
 
 /**
  * 内容安全
  * class ContentSecurity
  */
-class ContentSecurity
+class ContentSecurity extends AbstractGateway
 {
-    protected $app;
-
-    public function __construct(TtApp $ttApp)
-    {
-        $this->app = $ttApp;
-    }
-
     /**
      * 检测一段文本是否包含违法违规内容
      * @param array $contents

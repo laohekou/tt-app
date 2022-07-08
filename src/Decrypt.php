@@ -2,18 +2,12 @@
 
 namespace Xyu\TtApp;
 
+use Xyu\TtApp\Contract\AbstractGateway;
 use Xyu\TtApp\Exception\DecryptException;
 use Xyu\TtApp\Support\AES;
 
-class Decrypt
+class Decrypt extends AbstractGateway
 {
-    protected $app;
-
-    public function __construct(TtApp $ttApp)
-    {
-        $this->app = $ttApp;
-    }
-
     /**
      * 解密敏感数据
      * @param string $encryptedData
