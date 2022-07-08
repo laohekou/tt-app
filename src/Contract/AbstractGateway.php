@@ -78,7 +78,7 @@ abstract class AbstractGateway
     }
 
     /**
-     * 手机号解密
+     * 抖音手机号解密
      * @param string $encrypted_mobile
      * @return false|string
      */
