@@ -3,7 +3,7 @@
 namespace Xyu\TtApp\Douyin;
 
 use Hanson\Foundation\AbstractAccessToken;
-use Xyu\TtApp\Exception\TtAppException;
+use Xyu\TtApp\Exception\DyTokenException;
 
 /**
  * 凭证
@@ -44,7 +44,7 @@ class ClientToken extends AbstractAccessToken
     public function checkTokenResponse($result)
     {
         if (! isset($result['error_code']) || $result['error_code'] != 0) {
-            throw new TtAppException("获取抖音client_token 失败：{$result['err_tips']}", $result['error_code']);
+            throw new DyTokenException("获取抖音client_token 失败：{$result['err_tips']}", $result['error_code']);
         }
     }
 

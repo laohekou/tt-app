@@ -6,6 +6,8 @@ use Hanson\Foundation\Http;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 use Xyu\TtApp\Douyin\Account;
+use Xyu\TtApp\Douyin\LifeService\Cps;
+use Xyu\TtApp\Douyin\LifeService\Poi;
 use Xyu\TtApp\Douyin\LifeService\PreparceCode;
 use Xyu\TtApp\Douyin\LifeService\Shops;
 
@@ -69,6 +71,14 @@ class ServiceProvider implements ServiceProviderInterface
 
         $pimple['shops'] = function (TtApp $ttApp) {
             return new Shops($ttApp);
+        };
+
+        $pimple['poi'] = function (TtApp $ttApp) {
+            return new Poi($ttApp);
+        };
+
+        $pimple['cps'] = function (TtApp $ttApp) {
+            return new Cps($ttApp);
         };
 
     }

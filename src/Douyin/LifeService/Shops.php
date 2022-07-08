@@ -216,27 +216,6 @@ class Shops extends AbstractGateway
     }
 
     /**
-     * 获取抖音POI ID
-     * @param string $amap_id
-     * @return mixed|\Psr\Http\Message\StreamInterface
-     */
-    public function queryPoiId(string $amap_id)
-    {
-        $result = $this->app->http
-            ->request('GET','https://open.douyin.com/poi/query', [
-                \GuzzleHttp\RequestOptions::HEADERS => [
-                    'Content-Type' => 'application/json',
-                    'access-token' => $this->app->client_token->getToken()
-                ],
-                \GuzzleHttp\RequestOptions::QUERY => [
-                    'amap_id' => $amap_id
-                ]
-            ])->getBody();
-
-        return json_decode((string)$result, true) ?: $result;
-    }
-
-    /**
      * 店铺匹配任务结果查询
      * @param string $supplier_task_ids
      * @return mixed|\Psr\Http\Message\StreamInterface

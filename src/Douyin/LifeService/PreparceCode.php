@@ -143,7 +143,7 @@ class PreparceCode extends AbstractGateway
             ],
             \GuzzleHttp\RequestOptions::QUERY => [
                 'encrypted_code' => $encrypted_code,
-                'codes' => $codes,
+                'codes' => [$codes],
                 'order_id' => $order_id,
             ]
         ])->getBody();
@@ -160,6 +160,42 @@ class PreparceCode extends AbstractGateway
     {
         $result = $this->app->http->request('GET','https://open.douyin.com/goodlife/v1/fulfilment/certificate/verify_record/query', [
             \GuzzleHttp\RequestOptions::HEADERS => [
+                'access-token' => $this->app->client_token->getToken()
+            ],
+            \GuzzleHttp\RequestOptions::QUERY => $params
+        ])->getBody();
+
+        return json_decode((string)$result, true) ?: $result;
+    }
+
+    /**
+     * 优惠券同步
+     * @param array $params
+     * @return mixed|\Psr\Http\Message\StreamInterface
+     */
+    public function couponSync(array $params)
+    {
+        $result = $this->app->http->request('POST','https://open.douyin.com/poi/v2/coupon/sync', [
+            \GuzzleHttp\RequestOptions::HEADERS => [
+                'Content-Type' => 'application/json',
+                'access-token' => $this->app->client_token->getToken()
+            ],
+            \GuzzleHttp\RequestOptions::QUERY => $params
+        ])->getBody();
+
+        return json_decode((string)$result, true) ?: $result;
+    }
+
+    /**
+     * 优惠券更新
+     * @param array $params
+     * @return mixed|\Psr\Http\Message\StreamInterface
+     */
+    public function couponAvailable(array $params)
+    {
+        $result = $this->app->http->request('POST','https://open.douyin.com/poi/v2/coupon/sync/coupon_available', [
+            \GuzzleHttp\RequestOptions::HEADERS => [
+                'Content-Type' => 'application/json',
                 'access-token' => $this->app->client_token->getToken()
             ],
             \GuzzleHttp\RequestOptions::QUERY => $params
