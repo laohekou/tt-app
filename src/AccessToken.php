@@ -3,6 +3,7 @@
 namespace Xyu\TtApp;
 
 use Hanson\Foundation\AbstractAccessToken;
+use Hyperf\Redis\Redis;
 use Xyu\TtApp\Exception\TtAppException;
 
 /**
@@ -16,6 +17,11 @@ class AccessToken extends AbstractAccessToken
     protected $expiresJsonKey = 'expires_in';
 
     protected $cacheKey = 'zj-token';
+
+    /**
+     * @var Redis
+     */
+    protected $redis;
 
     public function getTokenFromServer()
     {
@@ -38,4 +44,32 @@ class AccessToken extends AbstractAccessToken
             throw new TtAppException("获取字节小程序access_token 失败：{$result['err_tips']}");
         }
     }
+
+
+    public function get_lock_token($forceRefresh = false)
+    {
+        $cached = $this->getCache()->fetch($this->getCacheKey()) ?: $this->token;
+
+        if ($forceRefresh || empty($cached)) {
+
+            if( $this->redis->set($this->cacheKey, '1', ['nx', 'px' => 200]) ) {
+                $result = $this->getTokenFromServer();
+
+                $this->checkTokenResponse($result);
+
+                $this->setToken(
+                    $token = $result[$this->tokenJsonKey],
+                    $this->expiresJsonKey ? $result[$this->expiresJsonKey] : null
+                );
+
+                return $token;
+            }else{
+                usleep(200 * 1000); // 毫秒
+                return $this->getToken($forceRefresh);
+            }
+        }
+
+        return $cached;
+    }
+
 }

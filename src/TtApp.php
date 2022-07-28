@@ -10,6 +10,8 @@ use Xyu\TtApp\Douyin\LifeService\Cps;
 use Xyu\TtApp\Douyin\LifeService\Poi;
 use Xyu\TtApp\Douyin\LifeService\PreparceCode;
 use Xyu\TtApp\Douyin\LifeService\Shops;
+use Xyu\TtApp\Douyin\KA\Goods;
+use Xyu\TtApp\Douyin\KA\KaOrder;
 
 /**
  * Class TtApp
@@ -31,6 +33,9 @@ use Xyu\TtApp\Douyin\LifeService\Shops;
  * @property-read Shops $shops
  * @property-read Cps $cps
  * @property-read Poi $poi
+ *
+ * @property-read Goods $goods
+ * @property-read KaOrder $ka_order
  * @property-read Cache $cache
  */
 class TtApp extends Foundation

@@ -180,4 +180,31 @@ class Cps extends AbstractGateway
 
         return json_decode((string)$result, true) ?: $result;
     }
+
+    /**
+     * 商品达人分佣配置
+     * @param int $status
+     * @param int $take_rate
+     * @param string $douyin_id
+     * @param string $spu_ext_id
+     * @return mixed|\Psr\Http\Message\StreamInterface
+     */
+    public function spuTakeRateSync(int $status, int $take_rate, string $douyin_id, string $spu_ext_id)
+    {
+        $result = $this->app->http
+            ->request('POST','https://open.douyin.com/poi/v2/spu/take_rate/sync', [
+                \GuzzleHttp\RequestOptions::HEADERS => [
+                    'Content-Type' => 'application/json',
+                    'access-token' => $this->app->client_token->getToken()
+                ],
+                \GuzzleHttp\RequestOptions::QUERY => [
+                    'status' => $status,
+                    'take_rate' => $take_rate,
+                    'douyin_id' => $douyin_id,
+                    'spu_ext_id' => $spu_ext_id,
+                ]
+            ])->getBody();
+
+        return json_decode((string)$result, true) ?: $result;
+    }
 }

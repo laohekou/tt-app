@@ -6,10 +6,12 @@ use Hanson\Foundation\Http;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 use Xyu\TtApp\Douyin\Account;
+use Xyu\TtApp\Douyin\KA\KaOrder;
 use Xyu\TtApp\Douyin\LifeService\Cps;
 use Xyu\TtApp\Douyin\LifeService\Poi;
 use Xyu\TtApp\Douyin\LifeService\PreparceCode;
 use Xyu\TtApp\Douyin\LifeService\Shops;
+use Xyu\TtApp\Douyin\KA\Goods;
 
 class ServiceProvider implements ServiceProviderInterface
 {
@@ -81,5 +83,12 @@ class ServiceProvider implements ServiceProviderInterface
             return new Cps($ttApp);
         };
 
+        $pimple['goods'] = function (TtApp $ttApp) {
+            return new Goods($ttApp);
+        };
+
+        $pimple['ka_order'] = function (TtApp $ttApp) {
+            return new KaOrder($ttApp);
+        };
     }
 }

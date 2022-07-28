@@ -23,6 +23,8 @@ return [
             // 抖音开放平台配置
             'client_key' => env('MP_DY_KEY'),
             'client_secret' => env('MP_DY_SECRET'),
+            'private_key' => env('MP_DY_PRIVATE_KEY'),
+            'public_key' => env('MP_DY_PUBLIC_KEY'),
         ]
     ],
 ];

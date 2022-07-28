@@ -3,6 +3,7 @@
 namespace Xyu\TtApp\Contract;
 
 use Xyu\TtApp\Exception\DyTokenException;
+use Xyu\TtApp\Exception\KaBusinessException;
 use Xyu\TtApp\TtApp;
 
 abstract class AbstractGateway
@@ -11,6 +12,10 @@ abstract class AbstractGateway
     protected $app;
 
     public $check;
+
+    public $nonceStr;
+
+    public $timestamp;
 
     public function setCheckToken(bool $check = false)
     {
@@ -85,6 +90,46 @@ abstract class AbstractGateway
     public function mobileDecrypt(string $encrypted_mobile) {
         $iv = substr($this->app->getClientSecret(), 0, 16);
         return openssl_decrypt($encrypted_mobile, 'aes-256-cbc', $this->app->getClientSecret(), 0, $iv);
+    }
+
+    /**
+     * 抖音交易系统2.0签名生成
+     * @param string $url
+     * @param string $body
+     * @param string $method
+     * @return string
+     * @throws KaBusinessException
+     */
+    public function kaSign(string $url, string $body, string $method = 'POST')
+    {
+        $this->timestamp = time();
+        $this->nonceStr = strtoupper(md5((uniqid(mt_rand(0,999999), true)) . microtime()));
+        $sign = $this->app->decrypt->makeSign($method, $url, $body, $this->timestamp, $this->nonceStr);
+
+        $this->checkSign($body, $this->timestamp, $this->nonceStr, $sign);
+
+        return $sign;
+    }
+
+    /**
+     * 抖音交易系统2.0验证签名
+     * @param string $body
+     * @param int $timestamp
+     * @param string $nonceStr
+     * @param string $sign
+     * @throws KaBusinessException
+     */
+    public function checkSign(string $body, int $timestamp, string $nonceStr, string $sign)
+    {
+        if(! $this->app->decrypt->verify($body, $timestamp, $nonceStr, $sign) ) {
+            throw new KaBusinessException('check sign err !');
+        }
+    }
+
+
+    public function returnResp()
+    {
+
     }
 
 }

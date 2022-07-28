@@ -3,6 +3,7 @@
 namespace Xyu\TtApp\Douyin;
 
 use Hanson\Foundation\AbstractAccessToken;
+use Hyperf\Redis\Redis;
 use Xyu\TtApp\Exception\DyTokenException;
 
 /**
@@ -16,6 +17,11 @@ class ClientToken extends AbstractAccessToken
     protected $expiresJsonKey = 'expires_in';
 
     protected $cacheKey = 'dy-cli-token';
+
+    /**
+     * @var Redis
+     */
+    protected $redis;
 
     /**
      * @return array
@@ -46,6 +52,33 @@ class ClientToken extends AbstractAccessToken
         if (! isset($result['error_code']) || $result['error_code'] != 0) {
             throw new DyTokenException("获取抖音client_token 失败：{$result['err_tips']}", $result['error_code']);
         }
+    }
+
+
+    public function get_lock_token($forceRefresh = false)
+    {
+        $cached = $this->getCache()->fetch($this->getCacheKey()) ?: $this->token;
+
+        if ($forceRefresh || empty($cached)) {
+
+            if( $this->redis->set($this->cacheKey, '1', ['nx', 'px' => 200]) ) {
+                $result = $this->getTokenFromServer();
+
+                $this->checkTokenResponse($result);
+
+                $this->setToken(
+                    $token = $result[$this->tokenJsonKey],
+                    $this->expiresJsonKey ? $result[$this->expiresJsonKey] : null
+                );
+
+                return $token;
+            }else{
+                usleep(200 * 1000); // 毫秒
+                return $this->getToken($forceRefresh);
+            }
+        }
+
+        return $cached;
     }
 
 }

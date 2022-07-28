@@ -3,6 +3,7 @@
 namespace Xyu\TtApp\Douyin;
 
 use Hanson\Foundation\AbstractAccessToken;
+use Hyperf\Redis\Redis;
 use Xyu\TtApp\Exception\DyTokenException;
 
 /**
@@ -16,6 +17,11 @@ class AccessToken extends AbstractAccessToken
     protected $expiresJsonKey = 'expires_in';
 
     protected $cacheKey = 'dy-token';
+
+    /**
+     * @var Redis
+     */
+    protected $redis;
 
     // 抖音授权码
     protected $code;
@@ -135,23 +141,31 @@ class AccessToken extends AbstractAccessToken
         return json_decode((string)$result, true) ?: $result;
     }
 
-    /**
-     * 生成client_token
-     * @return mixed|\Psr\Http\Message\StreamInterface
-     */
-    public function clientToken()
-    {
-        $result = $this->app->http
-                    ->request('POST','https://open.douyin.com/oauth/client_token', [
-                        \GuzzleHttp\RequestOptions::HEADERS => ['Content-Type' => 'multipart/form-data'],
-                        \GuzzleHttp\RequestOptions::FORM_PARAMS => [
-                            'client_key' => $this->app->getClientKey(),
-                            'client_secret' => $this->app->getClientSecret(),
-                            'grant_type' => 'client_credential',
-                        ]
-                    ])->getBody();
 
-        return json_decode((string)$result, true) ?: $result;
+    public function get_lock_token($forceRefresh = false)
+    {
+        $cached = $this->getCache()->fetch($this->getCacheKey()) ?: $this->token;
+
+        if ($forceRefresh || empty($cached)) {
+
+            if( $this->redis->set($this->cacheKey, '1', ['nx', 'px' => 200]) ) {
+                $result = $this->getTokenFromServer();
+
+                $this->checkTokenResponse($result);
+
+                $this->setToken(
+                    $token = $result[$this->tokenJsonKey],
+                    $this->expiresJsonKey ? $result[$this->expiresJsonKey] : null
+                );
+
+                return $token;
+            }else{
+                usleep(200 * 1000); // 毫秒
+                return $this->getToken($forceRefresh);
+            }
+        }
+
+        return $cached;
     }
 
 }
