@@ -27,3 +27,10 @@ if (!function_exists('ttapp')) {
         return \Hyperf\Utils\ApplicationContext::getContainer()->get(\Xyu\TtApp\Hyperf\Factory::class)->make($name);
     }
 }
+
+if (!function_exists('_redis')) {
+    function _redis(string $name = 'default')
+    {
+        return \Hyperf\Utils\ApplicationContext::getContainer()->get(\Hyperf\Redis\Redis::class);
+    }
+}

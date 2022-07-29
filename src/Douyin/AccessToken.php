@@ -3,7 +3,6 @@
 namespace Xyu\TtApp\Douyin;
 
 use Hanson\Foundation\AbstractAccessToken;
-use Hyperf\Redis\Redis;
 use Xyu\TtApp\Exception\DyTokenException;
 
 /**
@@ -17,11 +16,6 @@ class AccessToken extends AbstractAccessToken
     protected $expiresJsonKey = 'expires_in';
 
     protected $cacheKey = 'dy-token';
-
-    /**
-     * @var Redis
-     */
-    protected $redis;
 
     // 抖音授权码
     protected $code;
@@ -149,7 +143,7 @@ class AccessToken extends AbstractAccessToken
         if ($forceRefresh || empty($cached)) {
 
             if(class_exists('Hyperf\Redis\Redis')) {
-                if( $this->redis->set($this->cacheKey, '1', ['nx', 'px' => 200]) ) {
+                if( _redis()->set($this->cacheKey, '1', ['nx', 'px' => 650]) ) {
                     $result = $this->getTokenFromServer();
 
                     $this->checkTokenResponse($result);
@@ -161,8 +155,8 @@ class AccessToken extends AbstractAccessToken
 
                     return $token;
                 }else{
-                    usleep(200 * 1000); // 毫秒
-                    return $this->getToken($forceRefresh);
+                    usleep(650 * 1000); // 毫秒
+                    return $this->get_lock_token($forceRefresh);
                 }
             }else{
                 return $this->getToken($forceRefresh);
