@@ -73,9 +73,7 @@ class ClientToken extends AbstractAccessToken
 
                     return $token;
                 }else{
-                    var_dump(111111);
                     usleep(200 * 1000); // 毫秒
-                    var_dump(222222);
                     return $this->getToken($forceRefresh);
                 }
             }else{
