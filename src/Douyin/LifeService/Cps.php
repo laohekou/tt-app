@@ -16,13 +16,13 @@ class Cps extends AbstractGateway
     public function planStatus(array $plan_update_list, int $plan_id, int $status)
     {
         $result = $this->app->http
-            ->request('POST','https://open.douyin.com/poi/common/plan/update/status', [
+            ->request('POST','https://open.douyin.com/poi/common/plan/update/status/', [
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Content-Type' => 'application/json',
-                    'access-token' => $this->app->client_token->getToken()
+                    'access-token' => $this->app->client_token->get_lock_token()
                 ],
-                \GuzzleHttp\RequestOptions::QUERY => [
-                    'plan_update_list' => json_encode($plan_update_list),
+                \GuzzleHttp\RequestOptions::JSON => [
+                    'plan_update_list' => $plan_update_list,
                     'plan_id' => $plan_id,
                     'status' => $status
                 ]
@@ -44,9 +44,9 @@ class Cps extends AbstractGateway
             ->request('POST','https://open.douyin.com/poi/plan/list', [
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Content-Type' => 'application/json',
-                    'access-token' => $this->app->client_token->getToken()
+                    'access-token' => $this->app->client_token->get_lock_token()
                 ],
-                \GuzzleHttp\RequestOptions::QUERY => [
+                \GuzzleHttp\RequestOptions::JSON => [
                     'spu_id' => $spu_id,
                     'page_no' => $page_no,
                     'page_size' => $page_size
@@ -67,10 +67,10 @@ class Cps extends AbstractGateway
             ->request('POST','https://open.douyin.com/poi/common/plan/detail', [
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Content-Type' => 'application/json',
-                    'access-token' => $this->app->client_token->getToken()
+                    'access-token' => $this->app->client_token->get_lock_token()
                 ],
-                \GuzzleHttp\RequestOptions::QUERY => [
-                    'plan_id_list' => json_encode($plan_id_list)
+                \GuzzleHttp\RequestOptions::JSON => [
+                    'plan_id_list' => $plan_id_list
                 ]
             ])->getBody();
 
@@ -90,9 +90,9 @@ class Cps extends AbstractGateway
             ->request('POST','https://open.douyin.com/poi/common/plan/talent/list', [
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Content-Type' => 'application/json',
-                    'access-token' => $this->app->client_token->getToken()
+                    'access-token' => $this->app->client_token->get_lock_token()
                 ],
-                \GuzzleHttp\RequestOptions::QUERY => [
+                \GuzzleHttp\RequestOptions::JSON => [
                     'plan_id' => $plan_id,
                     'page_no' => $page_no,
                     'page_size' => $page_size
@@ -114,9 +114,9 @@ class Cps extends AbstractGateway
             ->request('POST','https://open.douyin.com/poi/common/plan/talent/detail', [
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Content-Type' => 'application/json',
-                    'access-token' => $this->app->client_token->getToken()
+                    'access-token' => $this->app->client_token->get_lock_token()
                 ],
-                \GuzzleHttp\RequestOptions::QUERY => [
+                \GuzzleHttp\RequestOptions::JSON => [
                     'plan_id' => $plan_id,
                     'douyin_id_list' => $douyin_id_list
                 ]
@@ -140,9 +140,9 @@ class Cps extends AbstractGateway
             ->request('POST','https://open.douyin.com/poi/common/plan/talent/media/list', [
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Content-Type' => 'application/json',
-                    'access-token' => $this->app->client_token->getToken()
+                    'access-token' => $this->app->client_token->get_lock_token()
                 ],
-                \GuzzleHttp\RequestOptions::QUERY => [
+                \GuzzleHttp\RequestOptions::JSON => [
                     'plan_id' => $plan_id,
                     'page_no' => $page_no,
                     'page_size' => $page_size,
@@ -168,9 +168,9 @@ class Cps extends AbstractGateway
             ->request('POST','https://open.douyin.com/poi/common/plan/save', [
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Content-Type' => 'application/json',
-                    'access-token' => $this->app->client_token->getToken()
+                    'access-token' => $this->app->client_token->get_lock_token()
                 ],
-                \GuzzleHttp\RequestOptions::QUERY => [
+                \GuzzleHttp\RequestOptions::JSON => [
                     'plan_id' => $plan_id,
                     'spu_id' => $spu_id,
                     'commission_rate' => $commission_rate,
@@ -195,9 +195,9 @@ class Cps extends AbstractGateway
             ->request('POST','https://open.douyin.com/poi/v2/spu/take_rate/sync', [
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Content-Type' => 'application/json',
-                    'access-token' => $this->app->client_token->getToken()
+                    'access-token' => $this->app->client_token->get_lock_token()
                 ],
-                \GuzzleHttp\RequestOptions::QUERY => [
+                \GuzzleHttp\RequestOptions::JSON => [
                     'status' => $status,
                     'take_rate' => $take_rate,
                     'douyin_id' => $douyin_id,

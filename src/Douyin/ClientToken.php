@@ -30,8 +30,7 @@ class ClientToken extends AbstractAccessToken
     {
         $result = $this->app->http
             ->request('POST','https://open.douyin.com/oauth/client_token', [
-                \GuzzleHttp\RequestOptions::HEADERS => ['Content-Type' => 'multipart/form-data'],
-                \GuzzleHttp\RequestOptions::QUERY => [
+                \GuzzleHttp\RequestOptions::FORM_PARAMS => [
                     'client_key' => $this->app->getClientKey(),
                     'client_secret' => $this->app->getClientSecret(),
                     'grant_type' => 'client_credential',
@@ -61,19 +60,25 @@ class ClientToken extends AbstractAccessToken
 
         if ($forceRefresh || empty($cached)) {
 
-            if( $this->redis->set($this->cacheKey, '1', ['nx', 'px' => 200]) ) {
-                $result = $this->getTokenFromServer();
+            if(class_exists('Hyperf\Redis\Redis')) {
+                if( $this->redis->set($this->cacheKey, '1', ['nx', 'px' => 200]) ) {
+                    $result = $this->getTokenFromServer();
 
-                $this->checkTokenResponse($result);
+                    $this->checkTokenResponse($result);
 
-                $this->setToken(
-                    $token = $result[$this->tokenJsonKey],
-                    $this->expiresJsonKey ? $result[$this->expiresJsonKey] : null
-                );
+                    $this->setToken(
+                        $token = $result[$this->tokenJsonKey],
+                        $this->expiresJsonKey ? $result[$this->expiresJsonKey] : null
+                    );
 
-                return $token;
+                    return $token;
+                }else{
+                    var_dump(111111);
+                    usleep(200 * 1000); // 毫秒
+                    var_dump(222222);
+                    return $this->getToken($forceRefresh);
+                }
             }else{
-                usleep(200 * 1000); // 毫秒
                 return $this->getToken($forceRefresh);
             }
         }

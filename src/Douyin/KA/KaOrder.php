@@ -34,7 +34,7 @@ class KaOrder extends AbstractGateway
                         ',key_version=1' .
                         ',signature=' . $sign
                 ],
-                \GuzzleHttp\RequestOptions::QUERY => $body
+                \GuzzleHttp\RequestOptions::JSON => $body
             ])->getBody();
 
         return json_decode((string)$result, true) ?: $result;
@@ -77,7 +77,7 @@ class KaOrder extends AbstractGateway
                         ',key_version=1' .
                         ',signature=' . $sign
                 ],
-                \GuzzleHttp\RequestOptions::QUERY => $body
+                \GuzzleHttp\RequestOptions::JSON => $body
             ])->getBody();
 
         return json_decode((string)$result, true) ?: $result;
@@ -109,7 +109,7 @@ class KaOrder extends AbstractGateway
                         ',key_version=1' .
                         ',signature=' . $sign
                 ],
-                \GuzzleHttp\RequestOptions::QUERY => $body
+                \GuzzleHttp\RequestOptions::JSON => $body
             ])->getBody();
 
         return json_decode((string)$result, true) ?: $result;
@@ -141,7 +141,7 @@ class KaOrder extends AbstractGateway
                         ',key_version=1' .
                         ',signature=' . $sign
                 ],
-                \GuzzleHttp\RequestOptions::QUERY => $body
+                \GuzzleHttp\RequestOptions::JSON => $body
             ])->getBody();
 
         return json_decode((string)$result, true) ?: $result;
@@ -178,7 +178,7 @@ class KaOrder extends AbstractGateway
                         ',key_version=1' .
                         ',signature=' . $sign
                 ],
-                \GuzzleHttp\RequestOptions::QUERY => $body
+                \GuzzleHttp\RequestOptions::JSON => $body
             ])->getBody();
 
         return json_decode((string)$result, true) ?: $result;
@@ -220,7 +220,7 @@ class KaOrder extends AbstractGateway
                         ',key_version=1' .
                         ',signature=' . $sign
                 ],
-                \GuzzleHttp\RequestOptions::QUERY => $body
+                \GuzzleHttp\RequestOptions::JSON => $body
             ])->getBody();
 
         return json_decode((string)$result, true) ?: $result;
@@ -257,7 +257,7 @@ class KaOrder extends AbstractGateway
                         ',key_version=1' .
                         ',signature=' . $sign
                 ],
-                \GuzzleHttp\RequestOptions::QUERY => $body
+                \GuzzleHttp\RequestOptions::JSON => $body
             ])->getBody();
 
         return json_decode((string)$result, true) ?: $result;
@@ -285,7 +285,7 @@ class KaOrder extends AbstractGateway
                         ',key_version=1' .
                         ',signature=' . $sign
                 ],
-                \GuzzleHttp\RequestOptions::QUERY => $params
+                \GuzzleHttp\RequestOptions::JSON => $params
             ])->getBody();
 
         return json_decode((string)$result, true) ?: $result;
@@ -319,7 +319,7 @@ class KaOrder extends AbstractGateway
                         ',key_version=1' .
                         ',signature=' . $sign
                 ],
-                \GuzzleHttp\RequestOptions::QUERY => $body
+                \GuzzleHttp\RequestOptions::JSON => $body
             ])->getBody();
 
         return json_decode((string)$result, true) ?: $result;
@@ -351,7 +351,7 @@ class KaOrder extends AbstractGateway
                         ',key_version=1' .
                         ',signature=' . $sign
                 ],
-                \GuzzleHttp\RequestOptions::QUERY => $body
+                \GuzzleHttp\RequestOptions::JSON => $body
             ])->getBody();
 
         return json_decode((string)$result, true) ?: $result;

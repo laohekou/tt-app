@@ -102,6 +102,16 @@ class TtApp extends Foundation
         return $this->getConfig('client_secret');
     }
 
+    public function getPrivateKey()
+    {
+        return $this->getConfig('private_key');
+    }
+
+    public function getPublicKey()
+    {
+        return $this->getConfig('public_key');
+    }
+
     public function rebind(string $id, $value)
     {
         $this->offsetUnset($id);

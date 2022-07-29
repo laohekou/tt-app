@@ -21,7 +21,7 @@ class Storage extends AbstractGateway
     public function set(string $openid, $list, string $signature, string $sigMethod)
     {
         return json_decode((string)$this->app->http->post('https://developer.toutiao.com/api/apps/set_user_storage', [
-            'access_token' => $this->app->access_token->getToken(),
+            'access_token' => $this->app->access_token->get_lock_token(),
             'openid' => $openid,
             'signature' => $signature,
             'sig_method' => $sigMethod,
@@ -40,7 +40,7 @@ class Storage extends AbstractGateway
     public function remove(string $openid, $key, string $signature, string $sigMethod)
     {
         return json_decode((string)$this->app->http->post('https://developer.toutiao.com/api/apps/remove_user_storage', [
-            'access_token' => $this->app->access_token->getToken(),
+            'access_token' => $this->app->access_token->get_lock_token(),
             'openid' => $openid,
             'signature' => $signature,
             'sig_method' => $sigMethod,

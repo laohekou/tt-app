@@ -36,7 +36,7 @@ abstract class AbstractGateway
 
     public function dyAccessToken()
     {
-        $accessToken = $this->app->douyin_token->getToken()['access_token'] ?? '';
+        $accessToken = $this->app->douyin_token->get_lock_token()['access_token'] ?? '';
         if(! $accessToken) {
             throw new DyTokenException('获取raccess_token失败，重新走用户授权流程');
         }
@@ -57,12 +57,12 @@ abstract class AbstractGateway
             throw new DyTokenException('重新走用户授权流程', $errorCode);
         } elseif ($errorCode == 10008 || $errorCode == 2190008)
         {
-            $resp = $this->app->douyin_token->setRefreshToken($this->app->douyin_token->getToken()['refresh_token'])->getToken();
+            $resp = $this->app->douyin_token->setRefreshToken($this->app->douyin_token->get_lock_token()['refresh_token'])->get_lock_token();
             if(isset($resp['error_code']) && $resp['error_code'] == 10010)
             {
-                $result = $this->app->douyin_token->renewRefreshToken($this->app->douyin_token->getToken()['refresh_token']);
+                $result = $this->app->douyin_token->renewRefreshToken($this->app->douyin_token->get_lock_token()['refresh_token']);
                 if(isset($result['data']['error_code']) && $result['data']['error_code'] == 0) {
-                    $res = $this->app->douyin_token->setRefreshToken($result['data']['refresh_token'])->getToken();
+                    $res = $this->app->douyin_token->setRefreshToken($result['data']['refresh_token'])->get_lock_token();
                     if(isset($res['error_code']) && $res['error_code'] == 0) {
                         return true;
                     }else{
@@ -104,19 +104,17 @@ abstract class AbstractGateway
     {
         $this->timestamp = time();
         $this->nonceStr = strtoupper(md5((uniqid(mt_rand(0,999999), true)) . microtime()));
+
         $sign = $this->app->decrypt->makeSign($method, $url, $body, $this->timestamp, $this->nonceStr);
-
-        $this->checkSign($body, $this->timestamp, $this->nonceStr, $sign);
-
         return $sign;
     }
 
     /**
      * 抖音交易系统2.0验证签名
-     * @param string $body
-     * @param int $timestamp
-     * @param string $nonceStr
-     * @param string $sign
+     * @param string $body 应答中的应答JSON报文主体（response body）
+     * @param int $timestamp 应答HTTP头Byte-Timestamp 中获取应答时间戳
+     * @param string $nonceStr 应答HTTP头Byte-Nonce-Str 中获取应答随机串
+     * @param string $sign 应答签名值通过HTTP头Byte-Signature传递
      * @throws KaBusinessException
      */
     public function checkSign(string $body, int $timestamp, string $nonceStr, string $sign)
@@ -126,10 +124,5 @@ abstract class AbstractGateway
         }
     }
 
-
-    public function returnResp()
-    {
-
-    }
 
 }

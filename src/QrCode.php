@@ -18,7 +18,7 @@ class QrCode extends AbstractGateway
     public function create(array $params = [])
     {
         $result = $this->app->http->json('https://developer.toutiao.com/api/apps/qrcode', array_merge([
-            'access_token' => $this->app->access_token->getToken(),
+            'access_token' => $this->app->access_token->get_lock_token(),
         ], $params))->getBody();
 
         return json_decode((string)$result, true) ?: $result;

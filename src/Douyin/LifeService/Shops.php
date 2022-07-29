@@ -19,7 +19,7 @@ class Shops extends AbstractGateway
             ->request('POST','https://open.douyin.com/poi/sku/sync', [
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Content-Type' => 'application/json',
-                    'access-token' => $this->app->client_token->getToken()
+                    'access-token' => $this->app->client_token->get_lock_token()
                 ],
                 \GuzzleHttp\RequestOptions::QUERY => [
                     'skus' => $params,
@@ -43,7 +43,7 @@ class Shops extends AbstractGateway
             ->request('GET','https://open.douyin.com/poi/sku/sync', [
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Content-Type' => 'application/json',
-                    'access-token' => $this->app->client_token->getToken()
+                    'access-token' => $this->app->client_token->get_lock_token()
                 ],
                 \GuzzleHttp\RequestOptions::QUERY => [
                     'spu_ext_id' => $spu_ext_ids,
@@ -66,7 +66,7 @@ class Shops extends AbstractGateway
             ->request('POST','https://open.douyin.com/poi/v2/spu/sync', [
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Content-Type' => 'application/json',
-                    'access-token' => $this->app->client_token->getToken()
+                    'access-token' => $this->app->client_token->get_lock_token()
                 ],
                 \GuzzleHttp\RequestOptions::QUERY => $params
             ])->getBody();
@@ -86,7 +86,7 @@ class Shops extends AbstractGateway
             ->request('POST','https://open.douyin.com/poi/v2/spu/status_sync', [
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Content-Type' => 'application/json',
-                    'access-token' => $this->app->client_token->getToken()
+                    'access-token' => $this->app->client_token->get_lock_token()
                 ],
                 \GuzzleHttp\RequestOptions::QUERY => [
                     'spu_ext_id_list' => $params,
@@ -109,7 +109,7 @@ class Shops extends AbstractGateway
             ->request('POST','https://open.douyin.com/poi/v2/spu/stock_update', [
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Content-Type' => 'application/json',
-                    'access-token' => $this->app->client_token->getToken()
+                    'access-token' => $this->app->client_token->get_lock_token()
                 ],
                 \GuzzleHttp\RequestOptions::QUERY => [
                     'spu_ext_id' => $spu_ext_id,
@@ -134,7 +134,7 @@ class Shops extends AbstractGateway
             ->request('GET','https://open.douyin.com/poi/v2/spu/get', [
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Content-Type' => 'application/json',
-                    'access-token' => $this->app->client_token->getToken()
+                    'access-token' => $this->app->client_token->get_lock_token()
                 ],
                 \GuzzleHttp\RequestOptions::QUERY => [
                     'spu_ext_id' => $spu_ext_id,
@@ -158,7 +158,7 @@ class Shops extends AbstractGateway
             ->request('POST','https://open.douyin.com/poi/supplier/sync', [
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Content-Type' => 'application/json',
-                    'access-token' => $this->app->client_token->getToken()
+                    'access-token' => $this->app->client_token->get_lock_token()
                 ],
                 \GuzzleHttp\RequestOptions::QUERY => $params
             ])->getBody();
@@ -177,7 +177,7 @@ class Shops extends AbstractGateway
             ->request('GET','https://open.douyin.com/poi/supplier/query', [
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Content-Type' => 'application/json',
-                    'access-token' => $this->app->client_token->getToken()
+                    'access-token' => $this->app->client_token->get_lock_token()
                 ],
                 \GuzzleHttp\RequestOptions::QUERY => [
                     'supplier_ext_id' => $supplier_ext_id
@@ -198,7 +198,7 @@ class Shops extends AbstractGateway
             ->request('GET','https://open.douyin.com/poi/v2/supplier/query/task', [
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Content-Type' => 'application/json',
-                    'access-token' => $this->app->client_token->getToken()
+                    'access-token' => $this->app->client_token->get_lock_token()
                 ],
                 \GuzzleHttp\RequestOptions::QUERY => [
                     'supplier_task_ids' => $supplier_task_ids
@@ -219,7 +219,7 @@ class Shops extends AbstractGateway
             ->request('GET','https://open.douyin.com/poi/v2/supplier/query/supplier', [
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Content-Type' => 'application/json',
-                    'access-token' => $this->app->client_token->getToken()
+                    'access-token' => $this->app->client_token->get_lock_token()
                 ],
                 \GuzzleHttp\RequestOptions::QUERY => [
                     'supplier_ext_id' => $supplier_ext_id
@@ -240,7 +240,7 @@ class Shops extends AbstractGateway
             ->request('POST','https://open.douyin.com/poi/v2/supplier/match', [
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Content-Type' => 'application/json',
-                    'access-token' => $this->app->client_token->getToken()
+                    'access-token' => $this->app->client_token->get_lock_token()
                 ],
                 \GuzzleHttp\RequestOptions::QUERY => [
                     'match_data_list' => $params
@@ -260,7 +260,7 @@ class Shops extends AbstractGateway
             ->request('POST','https://open.douyin.com/poi/supplier/query_all', [
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Content-Type' => 'application/json',
-                    'access-token' => $this->app->client_token->getToken()
+                    'access-token' => $this->app->client_token->get_lock_token()
                 ],
                 \GuzzleHttp\RequestOptions::QUERY => []
             ])->getBody();
@@ -279,7 +279,7 @@ class Shops extends AbstractGateway
             ->request('GET','https://open.douyin.com/poi/supplier/query_callback', [
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Content-Type' => 'application/json',
-                    'access-token' => $this->app->client_token->getToken()
+                    'access-token' => $this->app->client_token->get_lock_token()
                 ],
                 \GuzzleHttp\RequestOptions::QUERY => [
                     'task_id' => $task_id
@@ -301,7 +301,7 @@ class Shops extends AbstractGateway
             ->request('GET','https://open.douyin.com/goodlife/v1/shop/poi/query', [
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Content-Type' => 'application/json',
-                    'access-token' => $this->app->client_token->getToken()
+                    'access-token' => $this->app->client_token->get_lock_token()
                 ],
                 \GuzzleHttp\RequestOptions::QUERY => [
                     'page' => $page,

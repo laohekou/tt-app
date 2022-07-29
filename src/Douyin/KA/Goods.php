@@ -17,7 +17,7 @@ class Goods extends AbstractGateway
         $result = $this->app->http
             ->request('GET','https://open.douyin.com/life/goods/template/get/', [
                 \GuzzleHttp\RequestOptions::QUERY => [
-                    'access_token' => $this->app->client_token->getToken(),
+                    'access_token' => $this->app->client_token->get_lock_token(),
                     'product_type' => $product_type,
                     'category_id' => $category_id
                 ]
@@ -37,7 +37,7 @@ class Goods extends AbstractGateway
         $result = $this->app->http
             ->request('GET','https://open.douyin.com/life/goods/product/draft/get/', [
                 \GuzzleHttp\RequestOptions::QUERY => [
-                    'access_token' => $this->app->client_token->getToken(),
+                    'access_token' => $this->app->client_token->get_lock_token(),
                     'out_ids' => $out_ids,
                     'product_ids' => $product_ids
                 ]
@@ -58,7 +58,7 @@ class Goods extends AbstractGateway
         $result = $this->app->http
             ->request('GET','https://open.douyin.com/life/goods/product/draft/list/', [
                 \GuzzleHttp\RequestOptions::QUERY => [
-                    'access_token' => $this->app->client_token->getToken(),
+                    'access_token' => $this->app->client_token->get_lock_token(),
                     'status' => $status,
                     'count' => $count,
                     'cursor' => $cursor,
@@ -79,7 +79,7 @@ class Goods extends AbstractGateway
         $result = $this->app->http
             ->request('GET','https://open.douyin.com/life/goods/product/online/get/', [
                 \GuzzleHttp\RequestOptions::QUERY => [
-                    'access_token' => $this->app->client_token->getToken(),
+                    'access_token' => $this->app->client_token->get_lock_token(),
                     'product_ids' => $product_ids,
                     'out_ids' => $out_ids,
                 ]
@@ -95,12 +95,12 @@ class Goods extends AbstractGateway
      * @param int|null $status
      * @return mixed|\Psr\Http\Message\StreamInterface
      */
-    public function goodsProductOnlineList(string $cursor = null, int $count = null, int $status = null)
+    public function goodsProductOnlineList(int $count = null, int $status = null, string $cursor = null)
     {
         $result = $this->app->http
             ->request('GET','https://open.douyin.com/life/goods/product/online/list/', [
                 \GuzzleHttp\RequestOptions::QUERY => [
-                    'access_token' => $this->app->client_token->getToken(),
+                    'access_token' => $this->app->client_token->get_lock_token(),
                     'status' => $status,
                     'count' => $count,
                     'cursor' => $cursor,
@@ -118,11 +118,11 @@ class Goods extends AbstractGateway
     public function goodsProductSave(array $params)
     {
         $result = $this->app->http
-            ->request('POST','https://open.douyin.com/life/goods/product/save/?access_token=' . $this->app->client_token->getToken(), [
+            ->request('POST','https://open.douyin.com/life/goods/product/save/?access_token=' . $this->app->client_token->get_lock_token(), [
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Content-Type' => 'application/json',
                 ],
-                \GuzzleHttp\RequestOptions::QUERY => $params
+                \GuzzleHttp\RequestOptions::JSON => $params
             ])->getBody();
 
         return json_decode((string)$result, true) ?: $result;
@@ -149,11 +149,11 @@ class Goods extends AbstractGateway
         );
 
         $result = $this->app->http
-            ->request('POST','https://open.douyin.com/life/goods/product/free_audit/?access_token=' . $this->app->client_token->getToken(), [
+            ->request('POST','https://open.douyin.com/life/goods/product/free_audit/?access_token=' . $this->app->client_token->get_lock_token(), [
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Content-Type' => 'application/json',
                 ],
-                \GuzzleHttp\RequestOptions::QUERY => $params
+                \GuzzleHttp\RequestOptions::JSON => $params
             ])->getBody();
 
         return json_decode((string)$result, true) ?: $result;
@@ -167,11 +167,11 @@ class Goods extends AbstractGateway
     public function goodsSkuBatchSave(array $params)
     {
         $result = $this->app->http
-            ->request('POST','https://open.douyin.com/life/goods/sku/batch_save/?access_token=' . $this->app->client_token->getToken(), [
+            ->request('POST','https://open.douyin.com/life/goods/sku/batch_save/?access_token=' . $this->app->client_token->get_lock_token(), [
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Content-Type' => 'application/json',
                 ],
-                \GuzzleHttp\RequestOptions::QUERY => $params
+                \GuzzleHttp\RequestOptions::JSON => $params
             ])->getBody();
 
         return json_decode((string)$result, true) ?: $result;
@@ -193,11 +193,11 @@ class Goods extends AbstractGateway
         );
 
         $result = $this->app->http
-            ->request('POST','https://open.douyin.com/life/goods/product/operate/?access_token=' . $this->app->client_token->getToken(), [
+            ->request('POST','https://open.douyin.com/life/goods/product/operate/?access_token=' . $this->app->client_token->get_lock_token(), [
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Content-Type' => 'application/json',
                 ],
-                \GuzzleHttp\RequestOptions::QUERY => $params
+                \GuzzleHttp\RequestOptions::JSON => $params
             ])->getBody();
 
         return json_decode((string)$result, true) ?: $result;
@@ -214,11 +214,11 @@ class Goods extends AbstractGateway
     public function goodsStockSync(string $product_id, string $out_id, int $limit_type, int $stock_qty)
     {
         $result = $this->app->http
-            ->request('POST','https://open.douyin.com/life/goods/stock/sync/?access_token=' . $this->app->client_token->getToken(), [
+            ->request('POST','https://open.douyin.com/life/goods/stock/sync/?access_token=' . $this->app->client_token->get_lock_token(), [
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Content-Type' => 'application/json',
                 ],
-                \GuzzleHttp\RequestOptions::QUERY => [
+                \GuzzleHttp\RequestOptions::JSON => [
                     'product_id' => $product_id,
                     'out_id' => $out_id,
                     'stock' => [
@@ -242,7 +242,7 @@ class Goods extends AbstractGateway
         $result = $this->app->http
             ->request('GET','https://open.douyin.com/life/goods/category/get/', [
                 \GuzzleHttp\RequestOptions::QUERY => [
-                    'access_token' => $this->app->client_token->getToken(),
+                    'access_token' => $this->app->client_token->get_lock_token(),
                     'category_id' => $category_id,
                     'account_id' => $account_id,
                 ]

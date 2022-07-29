@@ -14,7 +14,7 @@ class Other extends AbstractGateway
     public function shareName(string $uniqId, int $type = 2)
     {
         return json_decode((string)$this->app->http->json('https://developer.toutiao.com/api/apps/share_config', [
-            'access_token' => $this->app->access_token->getToken(),
+            'access_token' => $this->app->access_token->get_lock_token(),
             'appid' => $this->app->getAppId(),
             'uniq_id' => $uniqId,
             'type' => $type,

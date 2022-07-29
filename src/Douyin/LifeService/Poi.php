@@ -19,7 +19,7 @@ class Poi extends AbstractGateway
             ->request('GET','https://open.douyin.com/data/external/poi/base', [
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Content-Type' => 'application/json',
-                    'access-token' => $this->app->douyin_token->getToken()
+                    'access-token' => $this->app->douyin_token->get_lock_token()
                 ],
                 \GuzzleHttp\RequestOptions::QUERY => [
                     'poi_id' => $poi_id,
@@ -43,7 +43,7 @@ class Poi extends AbstractGateway
             ->request('GET','https://open.douyin.com/data/external/poi/user', [
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Content-Type' => 'application/json',
-                    'access-token' => $this->app->douyin_token->getToken()
+                    'access-token' => $this->app->douyin_token->get_lock_token()
                 ],
                 \GuzzleHttp\RequestOptions::QUERY => [
                     'poi_id' => $poi_id,
@@ -68,7 +68,7 @@ class Poi extends AbstractGateway
             ->request('GET','https://open.douyin.com/data/external/poi/service_base', [
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Content-Type' => 'application/json',
-                    'access-token' => $this->app->douyin_token->getToken()
+                    'access-token' => $this->app->douyin_token->get_lock_token()
                 ],
                 \GuzzleHttp\RequestOptions::QUERY => [
                     'poi_id' => $poi_id,
@@ -94,7 +94,7 @@ class Poi extends AbstractGateway
             ->request('GET','https://open.douyin.com/data/external/poi/service_user', [
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Content-Type' => 'application/json',
-                    'access-token' => $this->app->douyin_token->getToken()
+                    'access-token' => $this->app->douyin_token->get_lock_token()
                 ],
                 \GuzzleHttp\RequestOptions::QUERY => [
                     'poi_id' => $poi_id,
@@ -117,7 +117,7 @@ class Poi extends AbstractGateway
             ->request('GET','https://open.douyin.com/data/external/poi/billboard', [
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Content-Type' => 'application/json',
-                    'access-token' => $this->app->douyin_token->getToken()
+                    'access-token' => $this->app->douyin_token->get_lock_token()
                 ],
                 \GuzzleHttp\RequestOptions::QUERY => [
                     'billboard_type' => $billboard_type
@@ -140,7 +140,7 @@ class Poi extends AbstractGateway
             ->request('GET','https://open.douyin.com/data/external/poi/claim/list', [
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Content-Type' => 'application/json',
-                    'access-token' => $this->app->client_token->getToken()
+                    'access-token' => $this->app->client_token->get_lock_token()
                 ],
                 \GuzzleHttp\RequestOptions::QUERY => [
                     'open_id' => $open_id,
@@ -163,7 +163,7 @@ class Poi extends AbstractGateway
             ->request('GET','https://open.douyin.com/poi/base/query/amap', [
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Content-Type' => 'application/json',
-                    'access-token' => $this->app->douyin_token->getToken()
+                    'access-token' => $this->app->douyin_token->get_lock_token()
                 ],
                 \GuzzleHttp\RequestOptions::QUERY => [
                     'amap_id' => $amap_id
@@ -184,7 +184,7 @@ class Poi extends AbstractGateway
             ->request('GET','https://open.douyin.com/poi/query', [
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Content-Type' => 'application/json',
-                    'access-token' => $this->app->client_token->getToken()
+                    'access-token' => $this->app->client_token->get_lock_token()
                 ],
                 \GuzzleHttp\RequestOptions::QUERY => [
                     'amap_id' => $amap_id

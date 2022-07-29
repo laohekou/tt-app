@@ -20,7 +20,7 @@ class Order extends AbstractGateway
             ->request('POST','https://open.douyin.com/poi/order/status', [
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Content-Type' => 'application/json',
-                    'access-token' => $this->app->client_token->getToken()
+                    'access-token' => $this->app->client_token->get_lock_token()
                 ],
                 \GuzzleHttp\RequestOptions::QUERY => [
                     'status' => $status,
@@ -44,7 +44,7 @@ class Order extends AbstractGateway
             ->request('POST','https://open.douyin.com/poi/ext/hotel/order/commit', [
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Content-Type' => 'application/json',
-                    'access-token' => $this->app->douyin_token->getToken()
+                    'access-token' => $this->app->douyin_token->get_lock_token()
                 ],
                 \GuzzleHttp\RequestOptions::QUERY => $params
             ])->getBody();
@@ -66,7 +66,7 @@ class Order extends AbstractGateway
             ->request('POST','https://open.douyin.com/poi/ext/hotel/order/status', [
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Content-Type' => 'application/json',
-                    'access-token' => $this->app->douyin_token->getToken()
+                    'access-token' => $this->app->douyin_token->get_lock_token()
                 ],
                 \GuzzleHttp\RequestOptions::QUERY => [
                     'status' => $status,
@@ -93,7 +93,7 @@ class Order extends AbstractGateway
             ->request('POST','https://open.douyin.com/poi/ext/hotel/order/cancel', [
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Content-Type' => 'application/json',
-                    'access-token' => $this->app->douyin_token->getToken()
+                    'access-token' => $this->app->douyin_token->get_lock_token()
                 ],
                 \GuzzleHttp\RequestOptions::QUERY => [
                     'order_status' => $status,
@@ -117,7 +117,7 @@ class Order extends AbstractGateway
             ->request('POST','https://open.douyin.com/poi/ext/presale_groupon/order/create', [
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Content-Type' => 'application/json',
-                    'access-token' => $this->app->douyin_token->getToken()
+                    'access-token' => $this->app->douyin_token->get_lock_token()
                 ],
                 \GuzzleHttp\RequestOptions::QUERY => $params
             ])->getBody();
@@ -136,7 +136,7 @@ class Order extends AbstractGateway
             ->request('POST','https://open.douyin.com/poi/ext/presale_groupon/order/commit', [
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Content-Type' => 'application/json',
-                    'access-token' => $this->app->douyin_token->getToken()
+                    'access-token' => $this->app->douyin_token->get_lock_token()
                 ],
                 \GuzzleHttp\RequestOptions::QUERY => [
                     'order_ext_id' => $order_ext_id
@@ -158,7 +158,7 @@ class Order extends AbstractGateway
             ->request('POST','https://open.douyin.com/poi/ext/presale_groupon/order/cancel', [
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Content-Type' => 'application/json',
-                    'access-token' => $this->app->douyin_token->getToken()
+                    'access-token' => $this->app->douyin_token->get_lock_token()
                 ],
                 \GuzzleHttp\RequestOptions::QUERY => [
                     'code_list' => $code_list,
@@ -180,7 +180,7 @@ class Order extends AbstractGateway
             ->request('POST','https://open.douyin.com/poi/order/sync', [
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Content-Type' => 'application/json',
-                    'access-token' => $this->app->client_token->getToken()
+                    'access-token' => $this->app->client_token->get_lock_token()
                 ],
                 \GuzzleHttp\RequestOptions::QUERY => $params
             ])->getBody();
@@ -199,7 +199,7 @@ class Order extends AbstractGateway
             ->request('GET','https://open.douyin.com/poi/order/bill/token', [
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Content-Type' => 'application/json',
-                    'access-token' => $this->app->client_token->getToken()
+                    'access-token' => $this->app->client_token->get_lock_token()
                 ],
                 \GuzzleHttp\RequestOptions::QUERY => [
                     'bill_date' => $bill_date
@@ -220,7 +220,7 @@ class Order extends AbstractGateway
             ->request('GET','https://open.douyin.com/poi/order/list/token', [
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Content-Type' => 'application/json',
-                    'access-token' => $this->app->client_token->getToken()
+                    'access-token' => $this->app->client_token->get_lock_token()
                 ],
                 \GuzzleHttp\RequestOptions::QUERY => [
                     'order_date' => $order_date

@@ -52,19 +52,23 @@ class AccessToken extends AbstractAccessToken
 
         if ($forceRefresh || empty($cached)) {
 
-            if( $this->redis->set($this->cacheKey, '1', ['nx', 'px' => 200]) ) {
-                $result = $this->getTokenFromServer();
+            if(class_exists('Hyperf\Redis\Redis')) {
+                if( $this->redis->set($this->cacheKey, '1', ['nx', 'px' => 200]) ) {
+                    $result = $this->getTokenFromServer();
 
-                $this->checkTokenResponse($result);
+                    $this->checkTokenResponse($result);
 
-                $this->setToken(
-                    $token = $result[$this->tokenJsonKey],
-                    $this->expiresJsonKey ? $result[$this->expiresJsonKey] : null
-                );
+                    $this->setToken(
+                        $token = $result[$this->tokenJsonKey],
+                        $this->expiresJsonKey ? $result[$this->expiresJsonKey] : null
+                    );
 
-                return $token;
+                    return $token;
+                }else{
+                    usleep(200 * 1000); // 毫秒
+                    return $this->getToken($forceRefresh);
+                }
             }else{
-                usleep(200 * 1000); // 毫秒
                 return $this->getToken($forceRefresh);
             }
         }

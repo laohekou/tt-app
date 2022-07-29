@@ -20,7 +20,7 @@ class ContentSecurity extends AbstractGateway
     {
         return json_decode((string)$this->app->http->request('POST', 'https://developer.toutiao.com/api/v2/tags/text/antidirt', [
             RequestOptions::HEADERS => [
-                'X-Token' => $this->app->access_token->getToken(),
+                'X-Token' => $this->app->access_token->get_lock_token(),
             ],
             RequestOptions::JSON => [
                 'tasks' => array_map(function ($content) {
@@ -40,7 +40,7 @@ class ContentSecurity extends AbstractGateway
     {
         return json_decode((string)$this->app->http->request('POST', 'https://developer.toutiao.com/api/apps/censor/image', [
             RequestOptions::HEADERS => [
-                'X-Token' => $this->app->access_token->getToken(),
+                'X-Token' => $this->app->access_token->get_lock_token(),
             ],
             RequestOptions::JSON => [
                 'tasks' => array_map(function ($image) {

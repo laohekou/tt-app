@@ -21,7 +21,7 @@ class TempMsg extends AbstractGateway
     public function notify(string $openId, string $tempId, array $data, string $page = null)
     {
         return json_decode((string)$this->app->http->json('https://developer.toutiao.com/api/apps/subscribe_notification/developer/v1/notify', [
-            'access_token' => $this->app->access_token->getToken(),
+            'access_token' => $this->app->access_token->get_lock_token(),
             'app_id' => $this->app->getAppId(),
             'tpl_id' => $tempId,
             'open_id' => $openId,
@@ -42,7 +42,7 @@ class TempMsg extends AbstractGateway
     public function send(string $to, string $tempId, string $formId, array $data, string $page = null)
     {
         return json_decode((string)$this->app->http->json('https://developer.toutiao.com/api/apps/game/template/send', [
-            'access_token' => $this->app->access_token->getToken(),
+            'access_token' => $this->app->access_token->get_lock_token(),
             'touser' => $to,
             'template_id' => $tempId,
             'page' => $page,

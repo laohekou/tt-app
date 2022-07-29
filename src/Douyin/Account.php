@@ -66,7 +66,7 @@ class Account extends AbstractGateway
             ->request('POST','https://open.douyin.com/goodlife/v1/member/user/update', [
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Content-Type' => 'application/json',
-                    'access-token' => $this->app->client_token->getToken(),
+                    'access-token' => $this->app->client_token->get_lock_token(),
                 ],
                 \GuzzleHttp\RequestOptions::JSON => $params
             ])->getBody();
@@ -85,10 +85,10 @@ class Account extends AbstractGateway
             ->request('POST','https://open.douyin.com/oauth/userinfo', [
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Content-Type' => 'application/json',
-                    'access-token' => $this->app->douyin_token->getToken(),
+                    'access-token' => $this->app->douyin_token->get_lock_token(),
                 ],
                 \GuzzleHttp\RequestOptions::JSON => [
-                    'access_token' => $this->app->douyin_token->getToken(),
+                    'access_token' => $this->app->douyin_token->get_lock_token(),
                     'open_id' => $open_id,
                 ]
             ])->getBody();
@@ -109,7 +109,7 @@ class Account extends AbstractGateway
             ->request('GET','https://open.douyin.com/fans/list', [
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Content-Type' => 'application/json',
-                    'access-token' => $this->app->douyin_token->getToken(),
+                    'access-token' => $this->app->douyin_token->get_lock_token(),
                 ],
                 \GuzzleHttp\RequestOptions::JSON => [
                     'count' => $count,
@@ -135,7 +135,7 @@ class Account extends AbstractGateway
             ->request('GET','https://open.douyin.com/following/list', [
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Content-Type' => 'application/json',
-                    'access-token' => $this->app->douyin_token->getToken(),
+                    'access-token' => $this->app->douyin_token->get_lock_token(),
                 ],
                 \GuzzleHttp\RequestOptions::JSON => [
                     'count' => $count,
@@ -159,7 +159,7 @@ class Account extends AbstractGateway
             ->request('GET','https://open.douyin.com/fans/check', [
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Content-Type' => 'application/json',
-                    'access-token' => $this->app->douyin_token->getToken(),
+                    'access-token' => $this->app->douyin_token->get_lock_token(),
                 ],
                 \GuzzleHttp\RequestOptions::JSON => [
                     'follower_open_id' => $follower_open_id,

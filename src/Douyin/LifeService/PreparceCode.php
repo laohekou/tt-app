@@ -16,7 +16,7 @@ class PreparceCode extends AbstractGateway
         $result = $this->app->http->request('POST','https://open.douyin.com/poi/order/confirm/cancel_prepare', [
             \GuzzleHttp\RequestOptions::HEADERS => [
                 'Content-Type' => 'application/json',
-                'access-token' => $this->app->client_token->getToken()
+                'access-token' => $this->app->client_token->get_lock_token()
             ],
             \GuzzleHttp\RequestOptions::JSON => $params
         ])->getBody();
@@ -34,7 +34,7 @@ class PreparceCode extends AbstractGateway
         $result = $this->app->http->request('POST','https://open.douyin.com/poi/order/confirm/prepare', [
             \GuzzleHttp\RequestOptions::HEADERS => [
                 'Content-Type' => 'application/json',
-                'access-token' => $this->app->client_token->getToken()
+                'access-token' => $this->app->client_token->get_lock_token()
             ],
             \GuzzleHttp\RequestOptions::JSON => [
                 'code_list' => $params['code'],
@@ -56,7 +56,7 @@ class PreparceCode extends AbstractGateway
         $result = $this->app->http->request('POST','https://open.douyin.com/poi/order/confirm', [
             \GuzzleHttp\RequestOptions::HEADERS => [
                 'Content-Type' => 'application/json',
-                'access-token' => $this->app->client_token->getToken()
+                'access-token' => $this->app->client_token->get_lock_token()
             ],
             \GuzzleHttp\RequestOptions::JSON => [
                 'code_list' => $params['code'],
@@ -78,7 +78,7 @@ class PreparceCode extends AbstractGateway
     {
         $result = $this->app->http->request('GET','https://open.douyin.com/goodlife/v1/fulfilment/certificate/prepare', [
             \GuzzleHttp\RequestOptions::HEADERS => [
-                'access-token' => $this->app->client_token->getToken()
+                'access-token' => $this->app->client_token->get_lock_token()
             ],
             \GuzzleHttp\RequestOptions::QUERY => [
                 'encrypted_data' => $encrypted_data,
@@ -99,7 +99,7 @@ class PreparceCode extends AbstractGateway
         $result = $this->app->http->request('POST','https://open.douyin.com/goodlife/v1/fulfilment/certificate/verify', [
             \GuzzleHttp\RequestOptions::HEADERS => [
                 'Content-Type' => 'application/json',
-                'access-token' => $this->app->client_token->getToken()
+                'access-token' => $this->app->client_token->get_lock_token()
             ],
             \GuzzleHttp\RequestOptions::JSON => $params
         ])->getBody();
@@ -117,7 +117,7 @@ class PreparceCode extends AbstractGateway
         $result = $this->app->http->request('POST','https://open.douyin.com/goodlife/v1/fulfilment/certificate/cancel', [
             \GuzzleHttp\RequestOptions::HEADERS => [
                 'Content-Type' => 'application/json',
-                'access-token' => $this->app->client_token->getToken()
+                'access-token' => $this->app->client_token->get_lock_token()
             ],
             \GuzzleHttp\RequestOptions::JSON => [
                 'verify_id' => $params['verify_id'],
@@ -139,7 +139,7 @@ class PreparceCode extends AbstractGateway
     {
         $result = $this->app->http->request('GET','https://open.douyin.com/goodlife/v1/fulfilment/certificate/get', [
             \GuzzleHttp\RequestOptions::HEADERS => [
-                'access-token' => $this->app->client_token->getToken()
+                'access-token' => $this->app->client_token->get_lock_token()
             ],
             \GuzzleHttp\RequestOptions::QUERY => [
                 'encrypted_code' => $encrypted_code,
@@ -160,7 +160,7 @@ class PreparceCode extends AbstractGateway
     {
         $result = $this->app->http->request('GET','https://open.douyin.com/goodlife/v1/fulfilment/certificate/verify_record/query', [
             \GuzzleHttp\RequestOptions::HEADERS => [
-                'access-token' => $this->app->client_token->getToken()
+                'access-token' => $this->app->client_token->get_lock_token()
             ],
             \GuzzleHttp\RequestOptions::QUERY => $params
         ])->getBody();
@@ -178,7 +178,7 @@ class PreparceCode extends AbstractGateway
         $result = $this->app->http->request('POST','https://open.douyin.com/poi/v2/coupon/sync', [
             \GuzzleHttp\RequestOptions::HEADERS => [
                 'Content-Type' => 'application/json',
-                'access-token' => $this->app->client_token->getToken()
+                'access-token' => $this->app->client_token->get_lock_token()
             ],
             \GuzzleHttp\RequestOptions::QUERY => $params
         ])->getBody();
@@ -196,7 +196,7 @@ class PreparceCode extends AbstractGateway
         $result = $this->app->http->request('POST','https://open.douyin.com/poi/v2/coupon/sync/coupon_available', [
             \GuzzleHttp\RequestOptions::HEADERS => [
                 'Content-Type' => 'application/json',
-                'access-token' => $this->app->client_token->getToken()
+                'access-token' => $this->app->client_token->get_lock_token()
             ],
             \GuzzleHttp\RequestOptions::QUERY => $params
         ])->getBody();
@@ -213,7 +213,7 @@ class PreparceCode extends AbstractGateway
     {
         $result = $this->app->http->request('GET','https://open.douyin.com/goodlife/v1/settle/ledger/query_record_by_cert', [
             \GuzzleHttp\RequestOptions::HEADERS => [
-                'access-token' => $this->app->client_token->getToken()
+                'access-token' => $this->app->client_token->get_lock_token()
             ],
             \GuzzleHttp\RequestOptions::QUERY => [
                 'certificate_ids' => $certificate_ids
