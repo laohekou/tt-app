@@ -232,7 +232,7 @@ class Goods extends AbstractGateway
     }
 
     /**
-     * 查询商品行业类目
+     * 查询商品品类
      * @param int|null $category_id
      * @param int|null $account_id
      * @return mixed|\Psr\Http\Message\StreamInterface

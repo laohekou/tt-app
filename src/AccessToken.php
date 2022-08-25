@@ -47,7 +47,7 @@ class AccessToken extends AbstractAccessToken
         if ($forceRefresh || empty($cached)) {
 
             if(class_exists('Hyperf\Redis\Redis')) {
-                if( _redis()->set($this->cacheKey, '1', ['nx', 'px' => 650]) ) {
+                if( _redis()->set($this->cacheKey, '1', ['nx', 'px' => 1000]) ) {
                     $result = $this->getTokenFromServer();
 
                     $this->checkTokenResponse($result);
