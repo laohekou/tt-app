@@ -52,7 +52,10 @@ class Decrypt extends AbstractGateway
         }
         $res = openssl_get_publickey($publicKey);
         $result = (bool)openssl_verify($data, base64_decode($sign), $res, OPENSSL_ALGO_SHA256);
-        openssl_free_key($res);
+        if(PHP_VERSION < '8.0'){
+            openssl_free_key($res);
+        }
+        unset($res);
         return $result;
     }
 
