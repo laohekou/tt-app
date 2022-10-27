@@ -38,8 +38,7 @@ class Decrypt extends AbstractGateway
         $priKey = file_get_contents($this->app->getPrivateKey());
         $privateKey = openssl_get_privatekey($priKey, '');
         openssl_sign($text, $sign, $privateKey, OPENSSL_ALGO_SHA256);
-        $sign = base64_encode($sign);
-        return $sign;
+        return base64_encode($sign);
     }
 
     // 抖音交易系统2.0验证签名

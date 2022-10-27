@@ -44,6 +44,8 @@ class TtApp extends Foundation
         ServiceProvider::class,
     ];
 
+    public $nonceStr;
+
     public function __construct($config)
     {
         if (!isset($config['debug'])) {
@@ -110,6 +112,17 @@ class TtApp extends Foundation
     public function getPublicKey()
     {
         return $this->getConfig('public_key');
+    }
+
+    public function setNonceStr(string $nonceStr): TtApp
+    {
+        $this->nonceStr = $nonceStr;
+        return $this;
+    }
+
+    public function getNonceStr(): string
+    {
+        return $this->nonceStr ?? '';
     }
 
     public function rebind(string $id, $value)

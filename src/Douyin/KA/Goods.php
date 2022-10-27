@@ -145,7 +145,7 @@ class Goods extends AbstractGateway
             'out_id',
             'sold_end_time',
             'stock_qty',
-            'owner_account_id',
+            'owner_account_id'
         );
 
         $result = $this->app->http
@@ -189,7 +189,7 @@ class Goods extends AbstractGateway
         $params = compact(
             'op_type',
             'product_id',
-            'out_id',
+            'out_id'
         );
 
         $result = $this->app->http

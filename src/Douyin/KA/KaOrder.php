@@ -61,7 +61,7 @@ class KaOrder extends AbstractGateway
             'delivery_qrcode_redirect',
             'book_callback',
             'calculation_callback',
-            'query_marketing_callback',
+            'query_marketing_callback'
         );
 
         $sign = $this->kaSign('/api/apps/trade/v2/query_settings', json_encode($body));
@@ -163,7 +163,7 @@ class KaOrder extends AbstractGateway
             'out_order_no',
             'item_order_list',
             'use_all',
-            'poi_info',
+            'poi_info'
         );
         $sign = $this->kaSign('/api/apps/trade/v2/push_delivery', json_encode($body));
 
@@ -205,7 +205,7 @@ class KaOrder extends AbstractGateway
             'settle_desc',
             'settle_params',
             'cp_extra',
-            'notify_url',
+            'notify_url'
         );
         $sign = $this->kaSign('/api/apps/trade/v2/create_settle', json_encode($body));
 

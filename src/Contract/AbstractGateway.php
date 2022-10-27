@@ -28,9 +28,10 @@ abstract class AbstractGateway
         return $this->check;
     }
 
-    public function __construct(TtApp $ttApp)
+    public function __construct(TtApp $ttApp, string $nonceStr = '')
     {
         $this->app = $ttApp;
+        $this->nonceStr = $nonceStr;
     }
 
 
@@ -100,13 +101,12 @@ abstract class AbstractGateway
      * @return string
      * @throws KaBusinessException
      */
-    public function kaSign(string $url, string $body, string $method = 'POST')
+    public function kaSign(string $url, string $body, string $method = 'POST'): string
     {
         $this->timestamp = time();
-        $this->nonceStr = strtoupper(md5((uniqid(mt_rand(0,999999), true)) . microtime()));
+        ! $this->nonceStr && $this->nonceStr = strtoupper(md5((uniqid((string)mt_rand(100000,999999), true)) . microtime()));
 
-        $sign = $this->app->decrypt->makeSign($method, $url, $body, $this->timestamp, $this->nonceStr);
-        return $sign;
+        return $this->app->decrypt->makeSign($method, $url, $body, $this->timestamp, (string)$this->nonceStr);
     }
 
     /**

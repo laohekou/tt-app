@@ -3,12 +3,6 @@
     "description": "字节跳动小程序sdk",
     "type": "library",
     "license": "MIT",
-    "authors": [
-        {
-            "name": "xyu",
-            "email": "15810265860@163.com"
-        }
-    ],
     "require": {
         "php": "^7.1|^8.0",
         "ext-json": "*",

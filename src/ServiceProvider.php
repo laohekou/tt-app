@@ -88,7 +88,7 @@ class ServiceProvider implements ServiceProviderInterface
         };
 
         $pimple['ka_order'] = function (TtApp $ttApp) {
-            return new KaOrder($ttApp);
+            return new KaOrder($ttApp, $ttApp->getNonceStr());
         };
     }
 }
